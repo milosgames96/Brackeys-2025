@@ -5,10 +5,16 @@ public class GunController : MonoBehaviour
     public GameObject projectilePrefab;
     public Transform firePoint;
 
+    [Header("DEV Tweaks")]
+    public float fireRate = 10f;
+
+    private float nextFireTime = 0f;
+
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButton(0) && Time.time >= nextFireTime)
         {
+            nextFireTime = Time.time + 1f / fireRate;
             Shoot();
         }
     }

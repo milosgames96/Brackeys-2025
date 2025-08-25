@@ -18,6 +18,11 @@ public abstract class Enemy : MonoBehaviour
 
     protected virtual void Die()
     {
+        if (GameManager.instance != null)
+        {
+            GameManager.instance.AddKill();
+        }
+
         Destroy(gameObject);
     }
 
