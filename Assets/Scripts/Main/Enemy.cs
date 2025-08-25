@@ -9,6 +9,7 @@ public abstract class Enemy : MonoBehaviour
     public virtual void TakeDamage(float amount)
     {
         health -= amount;
+
         if (health <= 0)
         {
             Die();
