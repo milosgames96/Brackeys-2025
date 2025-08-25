@@ -4,8 +4,12 @@ using UnityEngine.AI;
 public class MilkWalker : Enemy
 {
     private Transform playerTarget;
-
     private NavMeshAgent agent;
+    private float attackCooldown = 2f;
+    private float nextAttackTime = 0f;
+
+    [Header("DEV Tweaks")]
+    public float attackRange;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -30,10 +34,26 @@ public class MilkWalker : Enemy
         if (playerTarget != null)
         {
             agent.SetDestination(playerTarget.position);
+
+            float distanceToPlayer = Vector3.Distance(transform.position, playerTarget.position);
+
+            if (distanceToPlayer <= attackRange && Time.time >= nextAttackTime)
+            {
+                Attack();
+                nextAttackTime = Time.time + attackCooldown;
+            }
         }
     }
 
     public override void Attack()
     {
+        if (playerTarget == null) return;
+
+        PlayerHealth playerHealth = playerTarget.GetComponent<PlayerHealth>();
+        if (playerHealth != null)
+        {
+            Debug.Log("MilkWalker attacks");
+            playerHealth.TakeDamage(damage);
+        }
     }
 }
