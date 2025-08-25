@@ -2,11 +2,13 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
+    [Header("DEV Tweaks")]
     [SerializeField] private float speed = 20f;
     [SerializeField] private float damage = 10f;
     [SerializeField] private float lifetime = 3f;
 
     public GameObject hitEffectPrefab;
+    //public GameObject defaultEffectPrefab;
 
     private Rigidbody rb;
 
@@ -31,6 +33,16 @@ public class Projectile : MonoBehaviour
                 Instantiate(hitEffectPrefab, transform.position, transform.rotation);
             }
         }
+
+        // It's too much splatter
+
+        //else
+        //{
+        //    if (defaultEffectPrefab != null)
+        //    {
+        //        Instantiate(defaultEffectPrefab, transform.position, transform.rotation);
+        //    }
+        //}
 
         Destroy(gameObject);
     }
