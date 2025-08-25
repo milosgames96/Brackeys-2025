@@ -49,6 +49,7 @@ MonoBehaviour:
   health: 100
   damage: 15
   attackRange: 5
+  knockbackForce: 40
 --- !u!195 &7767555133370746103
 NavMeshAgent:
   m_ObjectHideFlags: 0

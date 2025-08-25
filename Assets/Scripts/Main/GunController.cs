@@ -12,7 +12,7 @@ public class GunController : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetMouseButton(0) && Time.time >= nextFireTime)
+        if (Input.GetMouseButton(0) && Time.time >= nextFireTime && Time.timeScale!=0)
         {
             nextFireTime = Time.time + 1f / fireRate;
             Shoot();

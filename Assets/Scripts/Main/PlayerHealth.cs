@@ -5,6 +5,7 @@ public class PlayerHealth : MonoBehaviour
 {
     public float maxHealth = 100f;
     public TextMeshProUGUI healthText;
+    public GameObject deathScreenUI;
 
     private float currentHealth;
 
@@ -12,6 +13,11 @@ public class PlayerHealth : MonoBehaviour
     {
         currentHealth = maxHealth;
         UpdateHealthText();
+
+        if (deathScreenUI != null)
+        {
+            deathScreenUI.SetActive(false);
+        }
     }
 
     public void TakeDamage(float amount)
@@ -38,11 +44,15 @@ public class PlayerHealth : MonoBehaviour
     {
         Debug.Log("Rip bozo 💀");
 
-        // TEMPORARY: Will implement death screen later
-#if UNITY_EDITOR
-        UnityEditor.EditorApplication.isPlaying = false;
-#else
-            Application.Quit();
-#endif
+        if (deathScreenUI != null)
+        {
+            deathScreenUI.SetActive(true);
+        }
+
+        // Pause the game
+        Time.timeScale = 0f;
+        // Unlock and show the cursor
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
     }
 }

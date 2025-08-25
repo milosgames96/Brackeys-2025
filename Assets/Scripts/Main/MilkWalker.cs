@@ -8,8 +8,10 @@ public class MilkWalker : Enemy
     private float attackCooldown = 2f;
     private float nextAttackTime = 0f;
 
+
     [Header("DEV Tweaks")]
     public float attackRange;
+    public float knockbackForce = 5f;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -52,8 +54,14 @@ public class MilkWalker : Enemy
         PlayerHealth playerHealth = playerTarget.GetComponent<PlayerHealth>();
         if (playerHealth != null)
         {
-            Debug.Log("MilkWalker attacks");
             playerHealth.TakeDamage(damage);
+        }
+
+        Rigidbody playerRb = playerTarget.GetComponent<Rigidbody>();
+        if (playerRb != null)
+        {
+            Vector3 knockbackDirection = (playerTarget.position - transform.position).normalized;
+            playerRb.AddForce(knockbackDirection * knockbackForce, ForceMode.Impulse);
         }
     }
 }

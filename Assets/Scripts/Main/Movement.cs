@@ -41,10 +41,11 @@ public class Movement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        GetInput();
+        if (Time.timeScale!=0)
+          GetInput();
 
 
-        if (Input.GetKeyDown(KeyCode.Space) && isGrounded == true)
+        if (Input.GetKeyDown(KeyCode.Space) && isGrounded == true && Time.timeScale!=0)
         {
             //Debug.Log("Jumping now!");
             Jump();
