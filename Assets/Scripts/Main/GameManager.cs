@@ -23,6 +23,9 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        // FPS limit
+        Application.targetFrameRate = 150;
     }
 
     void Start()
