@@ -46,7 +46,7 @@ public class Movement : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded == true)
         {
-            Debug.Log("Jumping now!");
+            //Debug.Log("Jumping now!");
             Jump();
         }
 

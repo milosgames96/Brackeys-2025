@@ -3,7 +3,7 @@ using UnityEngine.AI;
 
 public class MilkWalker : Enemy
 {
-    public Transform playerTarget;
+    private Transform playerTarget;
 
     private NavMeshAgent agent;
 
@@ -15,6 +15,12 @@ public class MilkWalker : Enemy
         if (agent == null)
         {
             Debug.LogError("NavMeshAgent component not found on MilkWalker.");
+        }
+
+        GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
+        if (playerObject != null)
+        {
+            playerTarget = playerObject.transform;
         }
     }
 
