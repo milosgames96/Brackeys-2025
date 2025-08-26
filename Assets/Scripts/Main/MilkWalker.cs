@@ -51,10 +51,10 @@ public class MilkWalker : Enemy
     {
         if (playerTarget == null) return;
 
-        PlayerHealth playerHealth = playerTarget.GetComponent<PlayerHealth>();
-        if (playerHealth != null)
+        PlayerManager playerManager = playerTarget.GetComponent<PlayerManager>();
+        if (playerManager != null)
         {
-            playerHealth.TakeDamage(damage);
+            playerManager.TakeDamage(damage);
         }
 
         Rigidbody playerRb = playerTarget.GetComponent<Rigidbody>();
