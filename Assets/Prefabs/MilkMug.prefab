@@ -45,15 +45,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: fc95bb0c9ffdf0b49a05bfba9f2f67c4, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 23.35
+      value: 1.49671
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: fc95bb0c9ffdf0b49a05bfba9f2f67c4, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.68
+      value: 1.68027
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: fc95bb0c9ffdf0b49a05bfba9f2f67c4, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 72.03
+      value: 15.75273
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: fc95bb0c9ffdf0b49a05bfba9f2f67c4, type: 3}
       propertyPath: m_LocalRotation.w
@@ -167,13 +167,13 @@ PrefabInstance:
       addedObject: {fileID: 6980808641102742274}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: fc95bb0c9ffdf0b49a05bfba9f2f67c4, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 2004922823355880665}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: fc95bb0c9ffdf0b49a05bfba9f2f67c4, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 7681704543880940748}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: fc95bb0c9ffdf0b49a05bfba9f2f67c4, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4102631440993063149}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: fc95bb0c9ffdf0b49a05bfba9f2f67c4, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7833642250158222892}
     - targetCorrespondingSourceObject: {fileID: 295159360471039484, guid: fc95bb0c9ffdf0b49a05bfba9f2f67c4, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2008755362048023537}
@@ -1362,25 +1362,6 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &2004922823355880665
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8804336513796481054}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e8dd279fec2144d49bf1f99162607dc2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  health: 100
-  damage: 20
-  projectilePrefab: {fileID: 3342753435271600239, guid: 3ca040ef33f0cbe4ba330581dcd11be7, type: 3}
-  firePoint: {fileID: 8043042718531485531}
-  fireRate: 1
-  aggroRange: 60
-  attackRange: 30
 --- !u!114 &7681704543880940748
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1416,3 +1397,19 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &7833642250158222892
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8804336513796481054}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 085bbaae97456c849aa13af941a28cf6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 25
+  damage: 5
+  attackRange: 3
+  knockbackForce: 5
