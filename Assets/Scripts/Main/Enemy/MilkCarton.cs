@@ -23,6 +23,7 @@ public class MilkCarton : Enemy
             currentState = State.Death;
         }
 
+        agent.isStopped = true;
         animator.SetBool("Running", false);
 
         float distanceToPlayer = Vector3.Distance(transform.position, playerTarget.position);

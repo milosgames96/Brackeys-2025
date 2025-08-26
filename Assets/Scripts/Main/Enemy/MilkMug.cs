@@ -22,6 +22,12 @@ public class MilkMug : Enemy
             currentState = State.Death;
         }
 
+        // Ragdoll will disable agent on death
+        if (agent.enabled)
+        {
+            agent.isStopped = true;
+        }
+
         animator.SetBool("Running", false);
 
         float distanceToPlayer = Vector3.Distance(transform.position, playerTarget.position);
