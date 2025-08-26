@@ -3377,52 +3377,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 674360195}
   m_CullTransparentMesh: 1
---- !u!1 &816251060 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3412991524734507460, guid: cd94a16317d7989469aa00662a7dacf8, type: 3}
-  m_PrefabInstance: {fileID: 3916424773113151940}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &816251062 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2043503558146490527, guid: cd94a16317d7989469aa00662a7dacf8, type: 3}
-  m_PrefabInstance: {fileID: 3916424773113151940}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 816251060}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3f89cc18a88d410439929e31db4cdb65, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &816251066
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 816251060}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: adcd40b0dbc8c9349adb12baafb4b882, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerManager
-  playerHUD: {fileID: 816251067}
-  playerMovement: {fileID: 816251062}
-  playerProfileTemplate: {fileID: 11400000, guid: ce15370bcb535314fa65e4a914a687cc, type: 2}
-  isAlive: 0
---- !u!114 &816251067
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 816251060}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 44d65a668b177df478bf029754cdc8e1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerHUD
-  healthText: {fileID: 1198515238}
-  deathScreenUI: {fileID: 1387738557}
 --- !u!43 &829605399
 Mesh:
   m_ObjectHideFlags: 0
@@ -9876,29 +9830,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1477298778295789057, guid: cd94a16317d7989469aa00662a7dacf8, type: 3}
-      propertyPath: healthText
-      value: 
-      objectReference: {fileID: 1198515238}
-    - target: {fileID: 1477298778295789057, guid: cd94a16317d7989469aa00662a7dacf8, type: 3}
-      propertyPath: deathScreenUI
-      value: 
-      objectReference: {fileID: 1387738557}
     - target: {fileID: 3412991524734507460, guid: cd94a16317d7989469aa00662a7dacf8, type: 3}
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 1477298778295789057, guid: cd94a16317d7989469aa00662a7dacf8, type: 3}
+    - target: {fileID: 4119035517257474618, guid: cd94a16317d7989469aa00662a7dacf8, type: 3}
+      propertyPath: healthText
+      value: 
+      objectReference: {fileID: 1198515238}
+    - target: {fileID: 4119035517257474618, guid: cd94a16317d7989469aa00662a7dacf8, type: 3}
+      propertyPath: deathScreenUI
+      value: 
+      objectReference: {fileID: 1387738557}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 3412991524734507460, guid: cd94a16317d7989469aa00662a7dacf8, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 816251066}
-    - targetCorrespondingSourceObject: {fileID: 3412991524734507460, guid: cd94a16317d7989469aa00662a7dacf8, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 816251067}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cd94a16317d7989469aa00662a7dacf8, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
