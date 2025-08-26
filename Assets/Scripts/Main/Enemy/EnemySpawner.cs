@@ -9,9 +9,13 @@ public class EnemySpawner : MonoBehaviour
     public float spawnRadius = 20f;
     public float minSpawnInterval = 2f;
     public float maxSpawnInterval = 4f;
+    public float minSpawnDistanceFromPlayer = 10f;
+
+    private Transform playerTransform;
 
     void Start()
     {
+        playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
         StartCoroutine(SpawnEnemiesRoutine());
     }
 
@@ -28,8 +32,14 @@ public class EnemySpawner : MonoBehaviour
             // Only and ONLY if the point is on the NavMesh
             if (NavMesh.SamplePosition(randomPoint, out hit, spawnRadius, NavMesh.AllAreas))
             {
-                GameObject enemyPrefab = this.enemyList[Random.Range(0, this.enemyList.Count)];
-                Instantiate(enemyPrefab, hit.position, Quaternion.identity);
+                // Ensure the spawn point is a minimum distance away from the player
+                // Since sometimes they spawn behind you
+                // "Nothing personal, kid"
+                if (Vector3.Distance(hit.position, playerTransform.position) >= minSpawnDistanceFromPlayer)
+                {
+                    GameObject enemyPrefab = this.enemyList[Random.Range(0, this.enemyList.Count)];
+                    Instantiate(enemyPrefab, hit.position, Quaternion.identity);
+                }
             }
         }
     }
