@@ -7,7 +7,8 @@ public abstract class Enemy : MonoBehaviour
     {
         Idle,
         Chasing,
-        Attacking
+        Attacking,
+        Death
     }
 
     [Header("Base Stats")]
@@ -22,6 +23,7 @@ public abstract class Enemy : MonoBehaviour
     protected NavMeshAgent agent;
     protected Transform playerTarget;
     protected Animator animator;
+    protected bool isDead = false;
 
     protected virtual void Awake()
     {
@@ -54,12 +56,18 @@ public abstract class Enemy : MonoBehaviour
             case State.Attacking:
                 HandleAttackingState();
                 break;
+            case State.Death:
+                HandleDeathState();
+                break;
         }
+
+        Debug.Log(currentState);
     }
 
     protected abstract void HandleIdleState();
     protected abstract void HandleChasingState();
     protected abstract void HandleAttackingState();
+    protected abstract void HandleDeathState();
 
     public abstract void Attack();
 
@@ -69,15 +77,17 @@ public abstract class Enemy : MonoBehaviour
         if (health <= 0)
         {
             Die();
+            HandleDeathState();
         }
     }
 
     protected virtual void Die()
     {
-        if (GameManager.instance != null)
+        if (GameManager.instance != null && !isDead)
         {
             GameManager.instance.AddKill();
         }
-        Destroy(gameObject);
+        isDead = true;
+        Destroy(gameObject, 10f);
     }
 }

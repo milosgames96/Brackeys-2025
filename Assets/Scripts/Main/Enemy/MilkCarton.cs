@@ -7,19 +7,16 @@ public class MilkCarton : Enemy
     public Transform firePoint;
     public float fireRate = 1f;
 
-    private Rigidbody[] ragdollRigidbodies;
     private float nextFireTime = 0f;
-    private bool isDead = false;
-
-    protected override void Awake()
-    {
-        base.Awake();
-        ragdollRigidbodies = GetComponentsInChildren<Rigidbody>();
-        SetRagdollState(false);
-    }
 
     protected override void HandleIdleState()
     {
+        if (isDead)
+        {
+            currentState = State.Death;
+        }
+
+        animator.SetBool("Running", false);
 
         float distanceToPlayer = Vector3.Distance(transform.position, playerTarget.position);
         if (distanceToPlayer <= aggroRange)
@@ -30,6 +27,12 @@ public class MilkCarton : Enemy
 
     protected override void HandleChasingState()
     {
+        if (isDead)
+        {
+            currentState = State.Death;
+        }
+
+        animator.SetBool("Running", true);
         agent.isStopped = false;
         agent.SetDestination(playerTarget.position);
 
@@ -46,7 +49,15 @@ public class MilkCarton : Enemy
 
     protected override void HandleAttackingState()
     {
+        if (isDead)
+        {
+            currentState = State.Death;
+        }
+
+        animator.SetBool("Running", false);
         agent.isStopped = true;
+
+        transform.LookAt(playerTarget);
 
         float distanceToPlayer = Vector3.Distance(transform.position, playerTarget.position);
         if (distanceToPlayer > attackRange)
@@ -62,31 +73,14 @@ public class MilkCarton : Enemy
         }
     }
 
+    protected override void HandleDeathState()
+    {
+        // Animation will come here
+    }
     public override void Attack()
     {
         if (projectilePrefab == null || firePoint == null || isDead) return;
         StartCoroutine(InstantiateBlob(0.75f));
-    }
-
-    protected override void Die()
-    {
-        if (GameManager.instance != null)
-        {
-            GameManager.instance.AddKill();
-        }
-        isDead = true;
-        SetRagdollState(true);
-        Destroy(gameObject, 10f);
-    }
-
-    private void SetRagdollState(bool state)
-    {
-        animator.enabled = !state;
-        agent.enabled = !state;
-        foreach (Rigidbody rb in ragdollRigidbodies)
-        {
-            rb.isKinematic = !state;
-        }
     }
 
     IEnumerator InstantiateBlob(float delay)
