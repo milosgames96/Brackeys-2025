@@ -102,7 +102,7 @@ public class PlayerProfileModifier : ScriptableObject
                 return currentValue / (1 + valueModifier.value / 100f);
             case ValueModifier.ValueModifierType.FLAT:
             default:
-                return -valueModifier.value;
+                return currentValue - valueModifier.value;
         }
     }
 }
