@@ -5,7 +5,14 @@ public class MilkCarton : Enemy
 {
     public GameObject projectilePrefab;
     public Transform firePoint;
-    public float fireRate = 1f;
+
+    [Header("DEV Tweaks")]
+    public float fireCooldown = 1f;
+    public float projectileFlightTime = 2f;
+    public int shotsInBurst = 4;
+
+    // This is like "fire rate" for blob bursts
+    public float burstShotDelay = 0.2f;
 
     private float nextFireTime = 0f;
 
@@ -69,7 +76,7 @@ public class MilkCarton : Enemy
         if (Time.time >= nextFireTime)
         {
             Attack();
-            nextFireTime = Time.time + 1f / fireRate;
+            nextFireTime = Time.time + fireCooldown;
         }
     }
 
@@ -86,9 +93,30 @@ public class MilkCarton : Enemy
     IEnumerator InstantiateBlob(float delay)
     {
         yield return new WaitForSeconds(delay);
-        if (projectilePrefab != null && firePoint != null)
+
+        for (int i = 0; i < shotsInBurst; i++)
         {
-            Instantiate(projectilePrefab, firePoint.position, firePoint.rotation);
+            if (projectilePrefab != null && firePoint != null && playerTarget != null)
+            {
+                Vector3 startPoint = firePoint.position;
+                Vector3 targetPoint = playerTarget.position;
+
+                Vector3 displacement = targetPoint - startPoint;
+                Vector3 initialVelocity = (displacement / projectileFlightTime) - (Physics.gravity * projectileFlightTime / 2f);
+
+                GameObject blobObject = Instantiate(projectilePrefab, startPoint, Quaternion.identity);
+                MilkBlob blobScript = blobObject.GetComponent<MilkBlob>();
+                if (blobScript != null)
+                {
+                    blobScript.InitializeForArc(playerTarget, projectileFlightTime);
+                }
+            }
+
+            // Wait before firing the next shot in the burst
+            if (i < shotsInBurst - 1)
+            {
+                yield return new WaitForSeconds(burstShotDelay);
+            }
         }
     }
 

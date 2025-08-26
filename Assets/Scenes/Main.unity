@@ -3522,6 +3522,14 @@ PrefabInstance:
       propertyPath: health
       value: 100
       objectReference: {fileID: 0}
+    - target: {fileID: 467536504722656911, guid: c8b704575b927e0448ffcdf975aacb9e, type: 3}
+      propertyPath: fireCooldown
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4605663486289038168, guid: c8b704575b927e0448ffcdf975aacb9e, type: 3}
+      propertyPath: m_Acceleration
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 7414064694066861684, guid: c8b704575b927e0448ffcdf975aacb9e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 20.79
@@ -3568,7 +3576,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7903777911074622670, guid: c8b704575b927e0448ffcdf975aacb9e, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -5818,6 +5826,10 @@ PrefabInstance:
     - target: {fileID: 8804336513796481054, guid: 53181b67d00f49d40ad0a7686ed70e06, type: 3}
       propertyPath: m_Name
       value: MilkMug
+      objectReference: {fileID: 0}
+    - target: {fileID: 8804336513796481054, guid: 53181b67d00f49d40ad0a7686ed70e06, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
