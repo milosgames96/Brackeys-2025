@@ -79,7 +79,7 @@ public class MilkMug : Enemy
                 if (agent.enabled)
                     agent.isStopped = true;
 
-                transform.LookAt(new Vector3(playerTarget.position.x, transform.position.y, playerTarget.position.z));
+                transform.LookAt(playerTarget);
 
                 if (Time.time >= nextFireTime)
                 {
@@ -93,7 +93,8 @@ public class MilkMug : Enemy
     }
     private void SetState()
     {
-        Debug.Log(Equals(currentState, State.Attacking) ? "Attacking" : Equals(currentState, State.Chasing) ? "Chasing" : "Idle");
+        //Debug.Log(Equals(currentState, State.Attacking) ? "Attacking" : Equals(currentState, State.Chasing) ? "Chasing" : "Idle");
+
         float distanceToPlayer = Vector3.Distance(transform.position, playerTarget.position);
 
         if (distanceToPlayer <= attackRange)
@@ -151,6 +152,19 @@ public class MilkMug : Enemy
         if (projectilePrefab != null && firePoint != null)
         {
             Instantiate(projectilePrefab, firePoint.position, firePoint.rotation);
+        }
+    }
+
+    void OnAnimatorIK(int layerIndex)
+    {
+        if (playerTarget != null)
+        {
+            animator.SetLookAtPosition(playerTarget.position);
+            animator.SetLookAtWeight(1.0f);
+        }
+        else
+        {
+            animator.SetLookAtWeight(0.0f);
         }
     }
 }

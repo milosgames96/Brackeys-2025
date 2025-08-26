@@ -6,7 +6,7 @@ public class MilkBlob : Projectile
     protected override void Start()
     {
         base.Start();
-        Debug.Log("MilkBlob launched");
+        //Debug.Log("MilkBlob launched");
     }
 
     protected override void OnTriggerEnter(Collider other)
