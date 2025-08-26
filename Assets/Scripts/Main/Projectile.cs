@@ -3,23 +3,23 @@ using UnityEngine;
 public class Projectile : MonoBehaviour
 {
     [Header("DEV Tweaks")]
-    [SerializeField] private float speed = 20f;
-    [SerializeField] private float damage = 10f;
-    [SerializeField] private float lifetime = 3f;
+    public float speed = 20f;
+    public float damage = 10f;
+    public float lifetime = 3f;
 
     public GameObject hitEffectPrefab;
     //public GameObject defaultEffectPrefab;
 
     private Rigidbody rb;
 
-    void Start()
+    protected virtual void Start()
     {
         rb = GetComponent<Rigidbody>();
         rb.linearVelocity = transform.forward * speed;
         Destroy(gameObject, lifetime);
     }
 
-    void OnTriggerEnter(Collider other)
+    protected virtual void OnTriggerEnter(Collider other)
     {
         Debug.Log($"Projectile hit: {other.gameObject.name}");
         
