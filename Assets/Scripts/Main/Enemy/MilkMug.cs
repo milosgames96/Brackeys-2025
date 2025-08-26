@@ -66,7 +66,6 @@ public class MilkMug : Enemy
         }
 
         animator.SetBool("Running", false);
-        animator.SetTrigger("Attack");
 
         // Ragdoll will disable agent on death
         if (agent.enabled)
@@ -97,6 +96,7 @@ public class MilkMug : Enemy
     {
         if (playerTarget == null) return;
 
+        animator.SetTrigger("Attack");
         PlayerManager playerManager = playerTarget.GetComponent<PlayerManager>();
         if (playerManager != null)
         {

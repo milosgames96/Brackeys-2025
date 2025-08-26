@@ -61,7 +61,7 @@ public abstract class Enemy : MonoBehaviour
                 break;
         }
 
-        Debug.Log(currentState);
+        //Debug.Log(currentState);
     }
 
     protected abstract void HandleIdleState();
