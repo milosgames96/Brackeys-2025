@@ -1,10 +1,11 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class EnemySpawner : MonoBehaviour
 {
-    public GameObject enemyPrefab;
+    public List<GameObject> enemyList;
     public float spawnRadius = 20f;
     public float minSpawnInterval = 2f;
     public float maxSpawnInterval = 4f;
@@ -27,6 +28,7 @@ public class EnemySpawner : MonoBehaviour
             // Only and ONLY if the point is on the NavMesh
             if (NavMesh.SamplePosition(randomPoint, out hit, spawnRadius, NavMesh.AllAreas))
             {
+                GameObject enemyPrefab = this.enemyList[Random.Range(0, this.enemyList.Count)];
                 Instantiate(enemyPrefab, hit.position, Quaternion.identity);
             }
         }
