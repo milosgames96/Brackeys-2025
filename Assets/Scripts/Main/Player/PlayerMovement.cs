@@ -3,18 +3,15 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class Movement : MonoBehaviour
+public class PlayerMovement : MonoBehaviour
 {
     float horizontalInput;
     float verticalInput;
     bool isGrounded;
     Rigidbody rb;
 
-    [Header("DEV Tweaks")]
-
-    public float moveSpeed;
-    public float jumpForce;
-    public float acceleration;
+    [HideInInspector]
+    public PlayerProfile playerProfile;
 
     [Header("Physics References")]
 
@@ -41,8 +38,8 @@ public class Movement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Time.timeScale!=0)
-          GetInput();
+        if (Time.timeScale != 0)
+            GetInput();
 
 
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded == true && Time.timeScale!=0)
@@ -77,18 +74,18 @@ public class Movement : MonoBehaviour
     private void MovePlayer()
     {
         Vector3 intendedMoveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
-        Vector3 targetVelocity = intendedMoveDirection.normalized * moveSpeed;
+        Vector3 targetVelocity = intendedMoveDirection.normalized * playerProfile.moveSpeed;
 
         targetVelocity.y = rb.linearVelocity.y;
 
         // Acceleration simulation
-        rb.linearVelocity = Vector3.MoveTowards(rb.linearVelocity, targetVelocity, acceleration * Time.fixedDeltaTime);
+        rb.linearVelocity = Vector3.MoveTowards(rb.linearVelocity, targetVelocity, playerProfile.acceleration * Time.fixedDeltaTime);
     }
 
     private void Jump()
     {
 
         rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
-        rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+        rb.AddForce(Vector3.up * playerProfile.jumpForce, ForceMode.Impulse);
     }
 }
