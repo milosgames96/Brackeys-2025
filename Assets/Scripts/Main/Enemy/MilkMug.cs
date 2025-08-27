@@ -103,6 +103,13 @@ public class MilkMug : Enemy
         if (playerTarget == null) return;
 
         animator.SetTrigger("Attack");
+        AudioSource audioSource = GetComponent<AudioSource>();
+
+        if (audioSource != null)
+        {
+            audioSource.PlayOneShot(audioSource.clip);
+        }
+
         PlayerManager playerManager = playerTarget.GetComponent<PlayerManager>();
         if (playerManager != null)
         {

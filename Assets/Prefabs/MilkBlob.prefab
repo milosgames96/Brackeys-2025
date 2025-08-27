@@ -153,3 +153,4 @@ MonoBehaviour:
   damage: 10
   lifetime: 3
   hitEffectPrefab: {fileID: 0}
+  blobEffectPrefab: {fileID: 2287218407887537786, guid: 26243e35aecb33944af05ea224685f86, type: 3}

@@ -3562,6 +3562,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: MilkCarton
       objectReference: {fileID: 0}
+    - target: {fileID: 7903777911074622670, guid: c8b704575b927e0448ffcdf975aacb9e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5790,6 +5794,18 @@ PrefabInstance:
     - target: {fileID: 8804336513796481054, guid: 53181b67d00f49d40ad0a7686ed70e06, type: 3}
       propertyPath: m_Name
       value: MilkMug
+      objectReference: {fileID: 0}
+    - target: {fileID: 8804336513796481054, guid: 53181b67d00f49d40ad0a7686ed70e06, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9121851932951562284, guid: 53181b67d00f49d40ad0a7686ed70e06, type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9121851932951562284, guid: 53181b67d00f49d40ad0a7686ed70e06, type: 3}
+      propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

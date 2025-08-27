@@ -5,6 +5,8 @@ public class MilkBlob : Projectile
     private bool isArcInitialized = false;
     private Vector3 initialVelocityForArc;
 
+    public GameObject blobEffectPrefab;
+
 
     private void Awake()
     {
@@ -50,6 +52,11 @@ public class MilkBlob : Projectile
         if (playerManager != null)
         {
             playerManager.TakeDamage(damage);
+        }
+
+        if (blobEffectPrefab != null)
+        {
+            Instantiate(blobEffectPrefab, transform.position, transform.rotation);
         }
 
         Destroy(gameObject);
