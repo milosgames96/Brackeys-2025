@@ -10,6 +10,7 @@ public class MilkCarton : Enemy
     public float fireCooldown = 1f;
     public float projectileFlightTime = 2f;
     public int shotsInBurst = 4;
+    public float animationDelay = 0.5f; // Tweaking animation
 
     // This is like "fire rate" for blob bursts
     public float burstShotDelay = 0.2f;
@@ -83,12 +84,29 @@ public class MilkCarton : Enemy
 
     protected override void HandleDeathState()
     {
-        // Animation will come here
+        //animator.SetTrigger("Death");
+    }
+
+    protected override void Die()
+    {
+        if (!isDead)
+        {
+            animator.SetTrigger("Death");
+
+            // Resize collider on death so we don't go through texture
+            BoxCollider boxCollider = GetComponent<BoxCollider>();
+            boxCollider.center = new Vector3(boxCollider.center.x, boxCollider.center.y, 0.5f);
+            boxCollider.size = new Vector3(boxCollider.size.x, boxCollider.size.y, 3f);
+
+        }
+
+        base.Die();
     }
     public override void Attack()
     {
+        animator.SetTrigger("Attack");
         if (projectilePrefab == null || firePoint == null || isDead) return;
-        StartCoroutine(InstantiateBlob(0.75f));
+        StartCoroutine(InstantiateBlob(animationDelay));
     }
 
     IEnumerator InstantiateBlob(float delay)

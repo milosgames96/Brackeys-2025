@@ -3518,18 +3518,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 467536504722656911, guid: c8b704575b927e0448ffcdf975aacb9e, type: 3}
-      propertyPath: health
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 467536504722656911, guid: c8b704575b927e0448ffcdf975aacb9e, type: 3}
-      propertyPath: fireCooldown
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 4605663486289038168, guid: c8b704575b927e0448ffcdf975aacb9e, type: 3}
-      propertyPath: m_Acceleration
-      value: 3
-      objectReference: {fileID: 0}
     - target: {fileID: 7414064694066861684, guid: c8b704575b927e0448ffcdf975aacb9e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 20.79
@@ -3573,10 +3561,6 @@ PrefabInstance:
     - target: {fileID: 7903777911074622670, guid: c8b704575b927e0448ffcdf975aacb9e, type: 3}
       propertyPath: m_Name
       value: MilkCarton
-      objectReference: {fileID: 0}
-    - target: {fileID: 7903777911074622670, guid: c8b704575b927e0448ffcdf975aacb9e, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -5763,26 +5747,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 6980808641102742274, guid: 53181b67d00f49d40ad0a7686ed70e06, type: 3}
-      propertyPath: m_Height
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 6980808641102742274, guid: 53181b67d00f49d40ad0a7686ed70e06, type: 3}
-      propertyPath: m_Radius
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6980808641102742274, guid: 53181b67d00f49d40ad0a7686ed70e06, type: 3}
-      propertyPath: m_Acceleration
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 6980808641102742274, guid: 53181b67d00f49d40ad0a7686ed70e06, type: 3}
-      propertyPath: m_StoppingDistance
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 7833642250158222892, guid: 53181b67d00f49d40ad0a7686ed70e06, type: 3}
-      propertyPath: attackRange
-      value: 5
-      objectReference: {fileID: 0}
     - target: {fileID: 8170824699260402340, guid: 53181b67d00f49d40ad0a7686ed70e06, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -5826,10 +5790,6 @@ PrefabInstance:
     - target: {fileID: 8804336513796481054, guid: 53181b67d00f49d40ad0a7686ed70e06, type: 3}
       propertyPath: m_Name
       value: MilkMug
-      objectReference: {fileID: 0}
-    - target: {fileID: 8804336513796481054, guid: 53181b67d00f49d40ad0a7686ed70e06, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
