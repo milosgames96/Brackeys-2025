@@ -94,6 +94,12 @@ public class MilkCarton : Enemy
         {
             animator.SetTrigger("Death");
 
+            // Disable agent so we don't get that postmortem sliding
+            if (agent != null)
+            {
+                agent.enabled = false;
+            }
+
             // Resize collider on death so we don't go through texture
             BoxCollider boxCollider = GetComponent<BoxCollider>();
             boxCollider.center = new Vector3(boxCollider.center.x, boxCollider.center.y, 0.5f);
@@ -101,7 +107,14 @@ public class MilkCarton : Enemy
 
         }
 
-        base.Die();
+        if (GameManager.instance != null && !isDead)
+        {
+            GameManager.instance.AddKill();
+        }
+        isDead = true;
+
+        // NO GAMEOBJECT DESTRUCTION
+        // We want it to stay as cover
     }
     public override void Attack()
     {
