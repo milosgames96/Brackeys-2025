@@ -3510,67 +3510,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &959705550
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 7833642250158222892, guid: 53181b67d00f49d40ad0a7686ed70e06, type: 3}
-      propertyPath: attackRange
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8170824699260402340, guid: 53181b67d00f49d40ad0a7686ed70e06, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 19.52
-      objectReference: {fileID: 0}
-    - target: {fileID: 8170824699260402340, guid: 53181b67d00f49d40ad0a7686ed70e06, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 1.32535
-      objectReference: {fileID: 0}
-    - target: {fileID: 8170824699260402340, guid: 53181b67d00f49d40ad0a7686ed70e06, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 80.4
-      objectReference: {fileID: 0}
-    - target: {fileID: 8170824699260402340, guid: 53181b67d00f49d40ad0a7686ed70e06, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.08807247
-      objectReference: {fileID: 0}
-    - target: {fileID: 8170824699260402340, guid: 53181b67d00f49d40ad0a7686ed70e06, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8170824699260402340, guid: 53181b67d00f49d40ad0a7686ed70e06, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0.9961141
-      objectReference: {fileID: 0}
-    - target: {fileID: 8170824699260402340, guid: 53181b67d00f49d40ad0a7686ed70e06, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8170824699260402340, guid: 53181b67d00f49d40ad0a7686ed70e06, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8170824699260402340, guid: 53181b67d00f49d40ad0a7686ed70e06, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 169.895
-      objectReference: {fileID: 0}
-    - target: {fileID: 8170824699260402340, guid: 53181b67d00f49d40ad0a7686ed70e06, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8804336513796481054, guid: 53181b67d00f49d40ad0a7686ed70e06, type: 3}
-      propertyPath: m_Name
-      value: MilkMug
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 53181b67d00f49d40ad0a7686ed70e06, type: 3}
 --- !u!1 &966709256
 GameObject:
   m_ObjectHideFlags: 0
@@ -5317,7 +5256,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1372194217
 Transform:
   m_ObjectHideFlags: 0
@@ -5348,6 +5287,7 @@ MonoBehaviour:
   enemyList:
   - {fileID: 7903777911074622670, guid: c8b704575b927e0448ffcdf975aacb9e, type: 3}
   - {fileID: 8804336513796481054, guid: 53181b67d00f49d40ad0a7686ed70e06, type: 3}
+  - {fileID: 8786929786671473299, guid: 3467d08fec27041428a750949524cffc, type: 3}
   spawnRadius: 111.6
   minSpawnInterval: 2
   maxSpawnInterval: 4
@@ -10070,10 +10010,34 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2043503558146490527, guid: cd94a16317d7989469aa00662a7dacf8, type: 3}
+      propertyPath: jumpSound
+      value: 
+      objectReference: {fileID: 8300000, guid: e7e95882c71a0dd41bd91a088c403cc5, type: 3}
     - target: {fileID: 3412991524734507460, guid: cd94a16317d7989469aa00662a7dacf8, type: 3}
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 3505347910933556229, guid: cd94a16317d7989469aa00662a7dacf8, type: 3}
+      propertyPath: shotSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 47cba2692394ace40b5adb7f32281aa6, type: 3}
+    - target: {fileID: 3612650159990737748, guid: cd94a16317d7989469aa00662a7dacf8, type: 3}
+      propertyPath: damageSounds.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3612650159990737748, guid: cd94a16317d7989469aa00662a7dacf8, type: 3}
+      propertyPath: 'damageSounds.Array.data[0]'
+      value: 
+      objectReference: {fileID: 8300000, guid: 2a9867f4eee1edc43a417b5aa2b9d1d7, type: 3}
+    - target: {fileID: 3612650159990737748, guid: cd94a16317d7989469aa00662a7dacf8, type: 3}
+      propertyPath: 'damageSounds.Array.data[1]'
+      value: 
+      objectReference: {fileID: 8300000, guid: 33c93c222e636a54fb588e3b6658c907, type: 3}
+    - target: {fileID: 3612650159990737748, guid: cd94a16317d7989469aa00662a7dacf8, type: 3}
+      propertyPath: 'damageSounds.Array.data[2]'
+      value: 
+      objectReference: {fileID: 8300000, guid: d8ca9d91a997abe4db00cc685d1d249a, type: 3}
     - target: {fileID: 4119035517257474618, guid: cd94a16317d7989469aa00662a7dacf8, type: 3}
       propertyPath: healthText
       value: 
@@ -10082,6 +10046,14 @@ PrefabInstance:
       propertyPath: deathScreenUI
       value: 
       objectReference: {fileID: 1387738557}
+    - target: {fileID: 4607061259545817281, guid: cd94a16317d7989469aa00662a7dacf8, type: 3}
+      propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4607061259545817281, guid: cd94a16317d7989469aa00662a7dacf8, type: 3}
+      propertyPath: reverbZoneMixCustomCurve.m_Curve.Array.data[0].value
+      value: 1.1
+      objectReference: {fileID: 0}
     - target: {fileID: 7398074960526245586, guid: cd94a16317d7989469aa00662a7dacf8, type: 3}
       propertyPath: m_LinearDamping
       value: 1
@@ -10104,4 +10076,3 @@ SceneRoots:
   - {fileID: 1480319411}
   - {fileID: 73491250}
   - {fileID: 1372194217}
-  - {fileID: 959705550}

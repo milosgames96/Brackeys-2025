@@ -1,11 +1,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(AudioSource))]
 public class PlayerManager : MonoBehaviour
 {
     public PlayerHUD playerHUD;
     public PlayerMovement playerMovement;
     public PlayerProfile playerProfileTemplate;
+
+    [Header("Audio")]
+    public List<AudioClip> damageSounds;
+    private AudioSource audioSource;
+
     private List<PlayerProfileModifier> playerProfileModifiers;
     [HideInInspector]
     public bool isAlive;
@@ -14,6 +20,7 @@ public class PlayerManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         this.isAlive = true;
         this.playerProfileModifiers = new List<PlayerProfileModifier>() { };
         this.playerProfile = Instantiate(playerProfileTemplate);
@@ -51,6 +58,17 @@ public class PlayerManager : MonoBehaviour
     public void TakeDamage(float amount)
     {
         playerProfile.health = Mathf.Max(playerProfile.health -= amount, 0);
+
+        // Play a random 1/3 sound from the list
+        if (damageSounds != null && damageSounds.Count > 0)
+        {
+            int randomIndex = Random.Range(0, damageSounds.Count);
+            AudioClip randomClip = damageSounds[randomIndex];
+            if (randomClip != null)
+            {
+                audioSource.PlayOneShot(randomClip);
+            }
+        }
     }
 
     private void Die()

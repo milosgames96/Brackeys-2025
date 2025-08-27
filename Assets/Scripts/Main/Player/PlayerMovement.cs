@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
+[RequireComponent(typeof(Rigidbody), typeof(AudioSource))]
 public class PlayerMovement : MonoBehaviour
 {
     float horizontalInput;
@@ -24,6 +25,10 @@ public class PlayerMovement : MonoBehaviour
     public float groundCheckDistance = 1.1f;
     public float gravityCorrection = 9.81f;
 
+    [Header("Audio")]
+    public AudioClip jumpSound; // Variable for the jump sound
+    private AudioSource audioSource;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -32,6 +37,13 @@ public class PlayerMovement : MonoBehaviour
         if (rb == null)
         {
             Debug.LogError("Rigidbody not found on the object.");
+        }
+
+        audioSource = GetComponent<AudioSource>();
+
+        if (audioSource==null)
+        {
+            Debug.LogError("Audio Source not found.");
         }
     }
 
@@ -44,7 +56,11 @@ public class PlayerMovement : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded == true && Time.timeScale!=0)
         {
-            //Debug.Log("Jumping now!");
+            if (jumpSound != null)
+            {
+                audioSource.PlayOneShot(jumpSound);
+            }
+
             Jump();
         }
 
