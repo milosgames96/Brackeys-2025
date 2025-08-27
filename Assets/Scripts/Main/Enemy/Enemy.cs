@@ -1,6 +1,8 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
+[RequireComponent(typeof(AudioSource))]
 public abstract class Enemy : MonoBehaviour
 {
     public enum State
@@ -19,6 +21,10 @@ public abstract class Enemy : MonoBehaviour
     public float aggroRange = 40f;
     public float attackRange = 30f;
 
+    [Header("Audio")]
+    public AudioClip hitSound;
+    protected AudioSource audioSource;
+
     protected State currentState;
     protected NavMeshAgent agent;
     protected Transform playerTarget;
@@ -29,6 +35,7 @@ public abstract class Enemy : MonoBehaviour
     {
         agent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     protected virtual void Start()
@@ -73,6 +80,13 @@ public abstract class Enemy : MonoBehaviour
 
     public virtual void TakeDamage(float amount)
     {
+        if (isDead) return;
+
+        if (hitSound != null && audioSource != null)
+        {
+            audioSource.PlayOneShot(hitSound);
+        }
+
         health -= amount;
         if (health <= 0)
         {
@@ -89,5 +103,22 @@ public abstract class Enemy : MonoBehaviour
         }
         isDead = true;
         Destroy(gameObject, 10f);
+    }
+
+    /// <summary>
+    /// This an ugly workaround to play 2D sounds since Unity doesn't have a built-in method for it.
+    /// Will use it in any situation where ClipPoint is far away from the player.
+    /// </summary>
+    public void Play2DSound(AudioClip clip)
+    {
+        GameObject soundObject = new GameObject("Temp2DSound");
+
+        AudioSource audioSource = soundObject.AddComponent<AudioSource>();
+
+        // Disable 3D
+        audioSource.spatialBlend = 0.0f;
+
+        audioSource.PlayOneShot(clip);
+        Destroy(soundObject, clip.length);
     }
 }

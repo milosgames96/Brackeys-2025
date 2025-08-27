@@ -41,15 +41,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 81987f0499173514abaffd8148d04f42, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 20.79
+      value: 20.18
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 81987f0499173514abaffd8148d04f42, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.67984
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 81987f0499173514abaffd8148d04f42, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 63.78
+      value: 75
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 81987f0499173514abaffd8148d04f42, type: 3}
       propertyPath: m_LocalRotation.w
@@ -208,6 +208,7 @@ MonoBehaviour:
   damage: 10
   aggroRange: 60
   attackRange: 30
+  hitSound: {fileID: 8300000, guid: accce3f0c6292cc44839a54fcc1cd140, type: 3}
   projectilePrefab: {fileID: 3342753435271600239, guid: 3ca040ef33f0cbe4ba330581dcd11be7, type: 3}
   firePoint: {fileID: 531341060993060691}
   fireCooldown: 4

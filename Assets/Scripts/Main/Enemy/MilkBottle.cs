@@ -5,11 +5,14 @@ public class MilkBottle : Enemy
 {
     public float knockbackForce = 5f;
     public GameObject explosionPrefab;
+    public GameObject deathPrefab;
     public float animationRange; // It's special range to trigger Attack animation, since bottle is kamikaze
     public float animationDelay; // Animation length is 0.42 currently, subject to change
 
-    private bool isPrimed = false;
+    [Header("Audio")]
+    public AudioClip kamikazeSound;
 
+    private bool isPrimed = false;
     protected override void HandleIdleState()
     {
         if (isDead)
@@ -64,8 +67,8 @@ public class MilkBottle : Enemy
     }
     protected override void HandleDeathState()
     {
-        // Explosion VFX will come here
     }
+
     public override void Attack()
     {
         if (playerTarget == null) return;
@@ -74,7 +77,7 @@ public class MilkBottle : Enemy
         if (playerManager != null)
         {
             playerManager.TakeDamage(damage);
-            Die();
+            Kamikaze();
         }
 
         Rigidbody playerRb = playerTarget.GetComponent<Rigidbody>();
@@ -85,6 +88,24 @@ public class MilkBottle : Enemy
         }
     }
 
+    // New prefab new sound, no kill counter increase
+    private void Kamikaze()
+    {
+        if (deathPrefab != null)
+        {
+            Instantiate(deathPrefab, transform.position, Quaternion.identity);
+        }
+
+        if (kamikazeSound!=null)
+        {
+            Play2DSound(kamikazeSound);
+        }
+
+        isDead = true;
+
+        Destroy(gameObject);
+    }
+    // Regular death
     protected override void Die()
     {
         if (explosionPrefab != null)
@@ -116,6 +137,11 @@ public class MilkBottle : Enemy
     {
         yield return new WaitForSeconds(delay);
         currentState = State.Attacking;
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        Debug.Log("Collided with " + collision.gameObject.name);
     }
 
 }

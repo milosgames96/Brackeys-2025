@@ -45,15 +45,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: fc95bb0c9ffdf0b49a05bfba9f2f67c4, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 19.52
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: fc95bb0c9ffdf0b49a05bfba9f2f67c4, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.32535
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: fc95bb0c9ffdf0b49a05bfba9f2f67c4, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 80.4
+      value: 75
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: fc95bb0c9ffdf0b49a05bfba9f2f67c4, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1420,6 +1420,7 @@ MonoBehaviour:
   damage: 5
   aggroRange: 40
   attackRange: 5
+  hitSound: {fileID: 8300000, guid: 80d0d907b98eda741a2659fc3b904c7e, type: 3}
   knockbackForce: 5
   attackDelay: 0.5
 --- !u!82 &9121851932951562284

@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -26,10 +27,14 @@ public class PlayerMovement : MonoBehaviour
     public float gravityCorrection = 9.81f;
 
     [Header("Audio")]
-    public AudioClip jumpSound; // Variable for the jump sound
-    private AudioSource audioSource;
+    public List<AudioClip> runningSounds;
+    public AudioClip jumpSound; 
+    public float stepRate = 0.5f;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+
+    private AudioSource audioSource;
+    private float nextStepTime = 0f;
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -47,7 +52,6 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (Time.timeScale != 0)
@@ -69,15 +73,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        // Perform the raycast
         isGrounded = Physics.Raycast(groundCheckOrigin.position, Vector3.down, groundCheckDistance, groundLayer);
-
-        //Debug.Log(isGrounded ? "Grounded" : "In Air");
-
-        // DEBUG: Drawing the ray to see what's going on
-        //Color rayColor = isGrounded ? Color.red : Color.green;
-        //Debug.DrawRay(groundCheckOrigin.position, Vector3.down * groundCheckDistance, rayColor);
-
         MovePlayer();
     }
 
@@ -89,6 +85,7 @@ public class PlayerMovement : MonoBehaviour
     }
     private void MovePlayer()
     {
+
         Vector3 intendedMoveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
         Vector3 targetVelocity = intendedMoveDirection.normalized * playerProfile.moveSpeed;
 
@@ -96,11 +93,27 @@ public class PlayerMovement : MonoBehaviour
 
         // Acceleration simulation
         rb.linearVelocity = Vector3.MoveTowards(rb.linearVelocity, targetVelocity, playerProfile.acceleration * Time.fixedDeltaTime);
+
+        if (isGrounded && intendedMoveDirection.sqrMagnitude > 0.1f && Time.time >= nextStepTime)
+        {
+            // Set the time for the next allowed step
+            nextStepTime = Time.time + stepRate;
+
+            // Pick and play a random running sound
+            if (runningSounds != null && runningSounds.Count > 0)
+            {
+                int randomIndex = UnityEngine.Random.Range(0, runningSounds.Count);
+                AudioClip randomClip = runningSounds[randomIndex];
+                if (randomClip != null)
+                {
+                    audioSource.PlayOneShot(randomClip,0.5f);
+                }
+            }
+        }
     }
 
     private void Jump()
     {
-
         rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
         rb.AddForce(Vector3.up * playerProfile.jumpForce, ForceMode.Impulse);
     }
