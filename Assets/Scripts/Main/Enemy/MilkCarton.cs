@@ -25,7 +25,11 @@ public class MilkCarton : Enemy
             currentState = State.Death;
         }
 
-        agent.isStopped = true;
+        if (agent.enabled)
+        {
+            agent.isStopped = true;
+        }
+
         animator.SetBool("Running", false);
 
         float distanceToPlayer = Vector3.Distance(transform.position, playerTarget.position);
@@ -43,8 +47,14 @@ public class MilkCarton : Enemy
         }
 
         animator.SetBool("Running", true);
-        agent.isStopped = false;
-        agent.SetDestination(playerTarget.position);
+
+        if (agent.enabled)
+        {
+            agent.isStopped = false;
+            agent.SetDestination(playerTarget.position);
+
+        }
+
 
         float distanceToPlayer = Vector3.Distance(transform.position, playerTarget.position);
         if (distanceToPlayer <= attackRange)
@@ -65,7 +75,11 @@ public class MilkCarton : Enemy
         }
 
         animator.SetBool("Running", false);
-        agent.isStopped = true;
+
+        if (agent.enabled)
+        {
+            agent.isStopped = true;
+        }
 
         transform.LookAt(playerTarget);
 

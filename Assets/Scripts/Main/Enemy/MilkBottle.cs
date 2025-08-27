@@ -4,23 +4,39 @@ using UnityEngine;
 public class MilkBottle : Enemy
 {
     public float knockbackForce = 5f;
-    public GameObject explosionPrefab;
-    public GameObject deathPrefab;
+
     public float animationRange; // It's special range to trigger Attack animation, since bottle is kamikaze
     public float animationDelay; // Animation length is 0.42 currently, subject to change
 
+    [Header("Player kills the enemy.")]
+    public GameObject explosionPrefab;
+
+    [Header("Kamikaze")]
+    public GameObject deathPrefab;
+
+
+
     [Header("Audio")]
     public AudioClip kamikazeSound;
+    public AudioSource loopingAudioSource;
+    public AudioSource oneShotAudioSource;
 
     private bool isPrimed = false;
+
+    protected override void Update()
+    {
+        base.Update();
+        HandleRollingSound();
+    }
     protected override void HandleIdleState()
     {
         if (isDead)
         {
             currentState = State.Death;
         }
+        if (agent.enabled)
+            agent.isStopped = true;
 
-        agent.isStopped = true;
         animator.SetBool("Running", false);
 
         float distanceToPlayer = Vector3.Distance(transform.position, playerTarget.position);
@@ -36,8 +52,11 @@ public class MilkBottle : Enemy
             currentState = State.Death;
         }
 
-        agent.isStopped = false;
-        agent.SetDestination(playerTarget.position);
+        if (agent.enabled)
+        {
+            agent.isStopped = false;
+            agent.SetDestination(playerTarget.position);
+        }
 
         animator.SetBool("Running", true);
 
@@ -60,7 +79,8 @@ public class MilkBottle : Enemy
 
         animator.SetBool("Running", false);
 
-        agent.isStopped = true;
+        if (agent.enabled)
+            agent.isStopped = true;
 
         transform.LookAt(playerTarget);
         Attack();
@@ -142,6 +162,20 @@ public class MilkBottle : Enemy
     private void OnCollisionEnter(Collision collision)
     {
         Debug.Log("Collided with " + collision.gameObject.name);
+    }
+
+    private void HandleRollingSound()
+    {
+        bool isRunning = animator.GetBool("Running");
+
+        if (isRunning && !loopingAudioSource.isPlaying)
+        {
+            loopingAudioSource.Play();
+        }
+        else if (!isRunning && loopingAudioSource.isPlaying)
+        {
+            loopingAudioSource.Stop();
+        }
     }
 
 }
