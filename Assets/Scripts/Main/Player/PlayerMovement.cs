@@ -24,7 +24,7 @@ public class PlayerMovement : MonoBehaviour
 
     // Make sure it's >=1 since Raycast point is 0,1,0
     public float groundCheckDistance = 1.1f;
-    public float gravityCorrection = 9.81f;
+    public float airMultiplier = 0.5f;
 
     [Header("Audio")]
     public List<AudioClip> runningSounds;
@@ -87,13 +87,29 @@ public class PlayerMovement : MonoBehaviour
     {
 
         Vector3 intendedMoveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
-        Vector3 targetVelocity = intendedMoveDirection.normalized * playerProfile.moveSpeed;
 
-        targetVelocity.y = rb.linearVelocity.y;
+        // Apply forces depending if airborne or not
+        if (isGrounded)
+            rb.AddForce(intendedMoveDirection.normalized * playerProfile.movementForce, ForceMode.Acceleration);
+        else
+            rb.AddForce(intendedMoveDirection.normalized * playerProfile.movementForce * airMultiplier, ForceMode.Acceleration);
 
-        // Acceleration simulation
-        rb.linearVelocity = Vector3.MoveTowards(rb.linearVelocity, targetVelocity, playerProfile.acceleration * Time.fixedDeltaTime);
+        if (isGrounded && intendedMoveDirection == Vector3.zero)
+        {
+            // Calculate a force opposite to our current velocity
+            Vector3 counterForce = new Vector3(-rb.linearVelocity.x, 0, -rb.linearVelocity.z);
+            rb.AddForce(counterForce * playerProfile.brakingForce * Time.fixedDeltaTime);
+        }
 
+        // Speed limiter since we're using addForce
+        Vector3 horizontalVelocity = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
+        if (horizontalVelocity.magnitude > playerProfile.maxSpeed)
+        {
+            Vector3 limitedVelocity = horizontalVelocity.normalized * playerProfile.maxSpeed;
+            rb.linearVelocity = new Vector3(limitedVelocity.x, rb.linearVelocity.y, limitedVelocity.z);
+        }
+
+        // Footsteps sound logic
         if (isGrounded && intendedMoveDirection.sqrMagnitude > 0.1f && Time.time >= nextStepTime)
         {
             // Set the time for the next allowed step

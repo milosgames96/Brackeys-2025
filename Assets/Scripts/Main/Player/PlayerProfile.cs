@@ -4,7 +4,8 @@ using UnityEngine;
 public class PlayerProfile : ScriptableObject
 {
     public float health;
-    public float moveSpeed;
+    public float maxSpeed;
     public float jumpForce;
-    public float acceleration;
+    public float movementForce;
+    public float brakingForce;
 }
