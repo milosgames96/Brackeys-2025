@@ -125,7 +125,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: fc95bb0c9ffdf0b49a05bfba9f2f67c4, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: fc95bb0c9ffdf0b49a05bfba9f2f67c4, type: 3}
       propertyPath: m_TagString
@@ -1420,7 +1420,7 @@ MonoBehaviour:
   damage: 5
   aggroRange: 40
   attackRange: 5
-  hitSound: {fileID: 8300000, guid: 80d0d907b98eda741a2659fc3b904c7e, type: 3}
+  hitSound: {fileID: 8300000, guid: 83e4e10bf8bcb0f40be55a1435146c00, type: 3}
   knockbackForce: 5
   attackDelay: 0.5
 --- !u!82 &9121851932951562284
