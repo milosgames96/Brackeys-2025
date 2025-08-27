@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerProfile
   health: 100
   moveSpeed: 15
-  jumpForce: 5
+  jumpForce: 10
   acceleration: 60
