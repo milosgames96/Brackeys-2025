@@ -4,7 +4,7 @@ public class MilkBlob : Projectile
 {
     private bool isArcInitialized = false;
     private Vector3 initialVelocityForArc;
-    // MilkCarton will call this as soon as it instantiates the blob
+
 
     private void Awake()
     {
@@ -12,10 +12,10 @@ public class MilkBlob : Projectile
         // Blob is a lot slower and lasts longer
         lifetime = 10f; 
     }
-    public void InitializeForArc(Transform target, float flightTime)
+    public void InitializeForArc(Vector3 target, float flightTime)
     {
         // TRAJECTORY CALCULATION
-        Vector3 displacement = target.position - transform.position;
+        Vector3 displacement = target - transform.position;
         initialVelocityForArc = (displacement / flightTime) - (Physics.gravity * flightTime / 2f);
         isArcInitialized = true;
     }
@@ -43,7 +43,7 @@ public class MilkBlob : Projectile
 
     protected override void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("Enemy"))
+        if(other.CompareTag("Enemy") || other.CompareTag("Blob"))
             return;
 
         PlayerManager playerManager = other.GetComponentInParent<PlayerManager>();

@@ -11,6 +11,7 @@ public class MilkCarton : Enemy
     public float projectileFlightTime = 2f;
     public int shotsInBurst = 4;
     public float animationDelay = 0.5f; // Tweaking animation
+    public float attackSpreadRadius = 1.5f; // A little sway to our blobs
 
     // This is like "fire rate" for blob bursts
     public float burstShotDelay = 0.2f;
@@ -105,6 +106,14 @@ public class MilkCarton : Enemy
     public override void Attack()
     {
         animator.SetTrigger("Attack");
+        
+
+        AudioSource audioSource = GetComponent<AudioSource>();
+        if (audioSource != null)
+        {
+            audioSource.PlayOneShot(audioSource.clip);
+        }
+
         if (projectilePrefab == null || firePoint == null || isDead) return;
         StartCoroutine(InstantiateBlob(animationDelay));
     }
@@ -118,16 +127,16 @@ public class MilkCarton : Enemy
             if (projectilePrefab != null && firePoint != null && playerTarget != null)
             {
                 Vector3 startPoint = firePoint.position;
-                Vector3 targetPoint = playerTarget.position;
 
-                Vector3 displacement = targetPoint - startPoint;
-                Vector3 initialVelocity = (displacement / projectileFlightTime) - (Physics.gravity * projectileFlightTime / 2f);
+                Vector2 randomOffset = Random.insideUnitCircle * attackSpreadRadius;
+                Vector3 targetPoint = playerTarget.position + new Vector3(randomOffset.x, 0, randomOffset.y);
 
                 GameObject blobObject = Instantiate(projectilePrefab, startPoint, Quaternion.identity);
                 MilkBlob blobScript = blobObject.GetComponent<MilkBlob>();
+
                 if (blobScript != null)
                 {
-                    blobScript.InitializeForArc(playerTarget, projectileFlightTime);
+                    blobScript.InitializeForArc(targetPoint, projectileFlightTime);
                 }
             }
 
