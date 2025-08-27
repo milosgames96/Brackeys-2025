@@ -16,3 +16,5 @@ MonoBehaviour:
   moveSpeed: 20
   jumpForce: 5
   acceleration: 60
+  fillingCapacity: 100
+  fillingAmount: 0

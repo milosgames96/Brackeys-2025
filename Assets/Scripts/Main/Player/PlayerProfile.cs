@@ -7,4 +7,6 @@ public class PlayerProfile : ScriptableObject
     public float moveSpeed;
     public float jumpForce;
     public float acceleration;
+    public float fillingCapacity;
+    public float fillingAmount;
 }

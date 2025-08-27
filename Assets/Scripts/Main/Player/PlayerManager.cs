@@ -1,15 +1,18 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
 {
     public PlayerHUD playerHUD;
+    public PlayerUpgradeFactory playerUpgradeFactory;
     public PlayerMovement playerMovement;
     public PlayerProfile playerProfileTemplate;
     private List<PlayerProfileModifier> playerProfileModifiers;
     [HideInInspector]
     public bool isAlive;
     private PlayerProfile playerProfile;
+    private PlayerInventory playerInventory = new PlayerInventory();
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -18,6 +21,11 @@ public class PlayerManager : MonoBehaviour
         this.playerProfileModifiers = new List<PlayerProfileModifier>() { };
         this.playerProfile = Instantiate(playerProfileTemplate);
         this.playerMovement.playerProfile = this.playerProfile;
+        this.playerUpgradeFactory.Init(playerProfile);
+        this.playerUpgradeFactory.PopulateFillingSliders(new List<Collectable>() {
+            new Collectable(Collectable.CollectableType.CRUMB, 123),
+            new Collectable(Collectable.CollectableType.CHOCOLATE_FILLING, 6),
+            new Collectable(Collectable.CollectableType.JAM_FILLING, 4) });
     }
 
     // Update is called once per frame
