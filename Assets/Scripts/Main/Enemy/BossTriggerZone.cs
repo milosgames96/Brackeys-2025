@@ -7,7 +7,7 @@ public class BossTriggerZone : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         // Check if the object that entered is the player
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("PlayerTrigger"))
         {
             if (bossToWake != null)
             {

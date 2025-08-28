@@ -34,6 +34,7 @@ public class MilkMug : Enemy
         animator.SetBool("Running", false);
 
         float distanceToPlayer = Vector3.Distance(transform.position, playerTarget.position);
+
         if (distanceToPlayer <= aggroRange && canSeePlayer)
         {
             currentState = State.Chasing;
