@@ -9,7 +9,13 @@ public class Collectable : ScriptableObject
         CRUMB,
         CHOCOLATE_FILLING,
         JAM_FILLING,
-        AMMO
+        CHOCOLATE_UPGRADE,
+        HOLES_UPGRADE,
+        AMMO,
+        PISTOL_WEAPON,
+        GUN_WEAPON,
+        SHOTGUN_WEAPON,
+        BAT_WEAPON
     }
     public CollectableType collectableType;
     public int amount;
@@ -26,8 +32,22 @@ public class Collectable : ScriptableObject
             collectableType.Equals(CollectableType.CHOCOLATE_FILLING);
     }
 
+    public Boolean IsUpgrade()
+    {
+        return collectableType.Equals(CollectableType.CHOCOLATE_UPGRADE) ||
+            collectableType.Equals(CollectableType.HOLES_UPGRADE);
+    }
+
     public Boolean IsAmmo()
     {
         return collectableType.Equals(CollectableType.AMMO);
+    }
+
+    public Boolean IsWeapon()
+    {
+        return collectableType.Equals(CollectableType.PISTOL_WEAPON) ||
+            collectableType.Equals(CollectableType.GUN_WEAPON) ||
+            collectableType.Equals(CollectableType.SHOTGUN_WEAPON) ||
+            collectableType.Equals(CollectableType.BAT_WEAPON);
     }
 }
