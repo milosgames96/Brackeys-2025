@@ -23,6 +23,7 @@ public class Boss : MonoBehaviour
     private bool isAwake = false;
     private Transform playerTarget;
     private float nextFireTime = 0f;
+    private bool isSweepingLaser = false;
 
     [Header("Boss Stats")]
     public float maxHealth = 3000f;
@@ -33,6 +34,7 @@ public class Boss : MonoBehaviour
     public float fireCooldown = 4f;
     public Transform firePoint;
     public float basicProjectileSpeed = 25f;
+    public Transform laserPoint;
 
     [Header("Butt Slam Attack")]
     public float slamRiseHeight = 20f;
@@ -54,6 +56,9 @@ public class Boss : MonoBehaviour
     public float attackSpreadRadius = 3f;
     public float mortarAnimationDelay = 0.75f;
 
+    [Header("Laser Attack Settings")]
+    public float laserSweepDuration = 3f;
+
     void Start()
     {
         currentHealth = maxHealth;
@@ -74,7 +79,7 @@ public class Boss : MonoBehaviour
         }
 
         // Always face the player once awakened
-        if (playerTarget != null)
+        if (playerTarget != null && !isSweepingLaser)
         {
             Vector3 lookPosition = new Vector3(playerTarget.position.x, transform.position.y, playerTarget.position.z);
             transform.LookAt(lookPosition);
@@ -245,7 +250,30 @@ public class Boss : MonoBehaviour
     private IEnumerator LaserAttack()
     {
         Debug.Log("Boss is using Laser Attack!");
-        yield return new WaitForSeconds(1f);
+        isSweepingLaser = true;
+
+        GameObject laserObject = Instantiate(laserPrefab, laserPoint.position, laserPoint.rotation);
+        laserObject.transform.SetParent(laserPoint);
+        //laserObject.transform.localRotation = new Quaternion(90, 0, 0, 0);
+
+        float startAngle = transform.eulerAngles.y - 45f;
+        float endAngle = transform.eulerAngles.y + 45f;
+        float elapsedTime = 0f;
+
+        while (elapsedTime < laserSweepDuration)
+        {
+            // Smoothly interpolate the angle over time
+            float currentAngle = Mathf.LerpAngle(startAngle, endAngle, elapsedTime / laserSweepDuration);
+            transform.rotation = Quaternion.Euler(0, currentAngle, 0);
+
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        transform.rotation = Quaternion.Euler(0, endAngle, 0);
+
+        Destroy(laserObject);
+        isSweepingLaser = false;
     }
 
     private IEnumerator BasicProjectileAttack()

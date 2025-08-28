@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &353073050414927334
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 993788713995883930}
+  m_Layer: 0
+  m_Name: LaserPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &993788713995883930
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 353073050414927334}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.589, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 9116959246063123046}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3486866062455879110
 GameObject:
   m_ObjectHideFlags: 0
@@ -101,6 +132,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 7acbc53e3f9e17546b3bb4c93ba94de3, type: 3}
       insertIndex: 0
       addedObject: {fileID: 8130087964959008766}
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 7acbc53e3f9e17546b3bb4c93ba94de3, type: 3}
+      insertIndex: 1
+      addedObject: {fileID: 993788713995883930}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 7acbc53e3f9e17546b3bb4c93ba94de3, type: 3}
       insertIndex: -1
@@ -111,6 +145,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 7acbc53e3f9e17546b3bb4c93ba94de3, type: 3}
       insertIndex: -1
       addedObject: {fileID: 6179939647656390298}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 7acbc53e3f9e17546b3bb4c93ba94de3, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3399279527842248774}
   m_SourcePrefab: {fileID: 100100000, guid: 7acbc53e3f9e17546b3bb4c93ba94de3, type: 3}
 --- !u!1 &8488760340786340060 stripped
 GameObject:
@@ -250,20 +287,36 @@ MonoBehaviour:
   maxHealth: 1200
   fireCooldown: 4
   firePoint: {fileID: 8130087964959008766}
+  basicProjectileSpeed: 25
+  laserPoint: {fileID: 0}
   slamRiseHeight: 20
   slamRiseSpeed: 15
   slamFallSpeed: 40
   shockwaveRadius: 30
   slamDamage: 50
   shockwaveVFX: {fileID: 0}
-  mortarProjectilePrefab: {fileID: 3342753435271600239, guid: 3ca040ef33f0cbe4ba330581dcd11be7, type: 3}
-  basicProjectilePrefab: {fileID: 0}
-  laserPrefab: {fileID: 0}
+  mortarProjectilePrefab: {fileID: 3342753435271600239, guid: a8c2f3e25789c214b987c9fe47163d12, type: 3}
+  basicProjectilePrefab: {fileID: 3342753435271600239, guid: 94226fda9035d014d8b5ba2eea981121, type: 3}
+  laserPrefab: {fileID: 5689389671782741669, guid: 7802d016dbf1c404eb8c4225052fb4de, type: 3}
   projectileFlightTime: 2
   shotsInBurst: 5
   burstShotDelay: 0.3
   attackSpreadRadius: 3
   mortarAnimationDelay: 0.75
+  laserSweepDuration: 3
+--- !u!114 &3399279527842248774
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8488760340786340060}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e1650083d65f4146832abb6c5a0354f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetTag: Enemy
 --- !u!4 &9116959246063123046 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 7acbc53e3f9e17546b3bb4c93ba94de3, type: 3}
