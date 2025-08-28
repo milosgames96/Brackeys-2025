@@ -32,6 +32,7 @@ public class Boss : MonoBehaviour
     [Header("Combat")]
     public float fireCooldown = 4f;
     public Transform firePoint;
+    public float basicProjectileSpeed = 25f;
 
     [Header("Butt Slam Attack")]
     public float slamRiseHeight = 20f;
@@ -251,5 +252,18 @@ public class Boss : MonoBehaviour
     {
         Debug.Log("Boss is using Basic Projectile Attack!");
         yield return new WaitForSeconds(0.5f);
+
+        if (basicProjectilePrefab != null)
+        {
+            Vector2 randomOffset = Random.insideUnitCircle * attackSpreadRadius;
+            Vector3 targetPoint = playerTarget.position + new Vector3(randomOffset.x, 0, randomOffset.y);
+            GameObject blobObject = Instantiate(basicProjectilePrefab, firePoint.position, Quaternion.identity);
+            MilkBlob blobScript = blobObject.GetComponent<MilkBlob>();
+            if (blobScript != null)
+            {
+                // Same Milkblob arc logic as the Carton
+                blobScript.InitializeForArc(targetPoint, projectileFlightTime);
+            }
+        }
     }
 }
