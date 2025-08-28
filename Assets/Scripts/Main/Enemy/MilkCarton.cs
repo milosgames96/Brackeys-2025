@@ -10,6 +10,8 @@ public class MilkCarton : Enemy
     public float fireCooldown = 1f;
     public float projectileFlightTime = 2f;
     public int shotsInBurst = 4;
+    public float animationDelay = 0.5f; // Tweaking animation
+    public float attackSpreadRadius = 1.5f; // A little sway to our blobs
 
     // This is like "fire rate" for blob bursts
     public float burstShotDelay = 0.2f;
@@ -23,7 +25,11 @@ public class MilkCarton : Enemy
             currentState = State.Death;
         }
 
-        agent.isStopped = true;
+        if (agent.enabled)
+        {
+            agent.isStopped = true;
+        }
+
         animator.SetBool("Running", false);
 
         float distanceToPlayer = Vector3.Distance(transform.position, playerTarget.position);
@@ -41,8 +47,14 @@ public class MilkCarton : Enemy
         }
 
         animator.SetBool("Running", true);
-        agent.isStopped = false;
-        agent.SetDestination(playerTarget.position);
+
+        if (agent.enabled)
+        {
+            agent.isStopped = false;
+            agent.SetDestination(playerTarget.position);
+
+        }
+
 
         float distanceToPlayer = Vector3.Distance(transform.position, playerTarget.position);
         if (distanceToPlayer <= attackRange)
@@ -63,7 +75,11 @@ public class MilkCarton : Enemy
         }
 
         animator.SetBool("Running", false);
-        agent.isStopped = true;
+
+        if (agent.enabled)
+        {
+            agent.isStopped = true;
+        }
 
         transform.LookAt(playerTarget);
 
@@ -83,12 +99,50 @@ public class MilkCarton : Enemy
 
     protected override void HandleDeathState()
     {
-        // Animation will come here
+        //animator.SetTrigger("Death");
+    }
+
+    protected override void Die()
+    {
+        if (!isDead)
+        {
+            animator.SetTrigger("Death");
+
+            // Disable agent so we don't get that postmortem sliding
+            if (agent != null)
+            {
+                agent.enabled = false;
+            }
+
+            // Resize collider on death so we don't go through texture
+            BoxCollider boxCollider = GetComponent<BoxCollider>();
+            boxCollider.center = new Vector3(boxCollider.center.x, boxCollider.center.y, 0.5f);
+            boxCollider.size = new Vector3(boxCollider.size.x, boxCollider.size.y, 3f);
+
+        }
+
+        if (GameManager.instance != null && !isDead)
+        {
+            GameManager.instance.AddKill();
+        }
+        isDead = true;
+
+        // NO GAMEOBJECT DESTRUCTION
+        // We want it to stay as cover
     }
     public override void Attack()
     {
+        animator.SetTrigger("Attack");
+        
+
+        AudioSource audioSource = GetComponent<AudioSource>();
+        if (audioSource != null)
+        {
+            audioSource.PlayOneShot(audioSource.clip);
+        }
+
         if (projectilePrefab == null || firePoint == null || isDead) return;
-        StartCoroutine(InstantiateBlob(0.75f));
+        StartCoroutine(InstantiateBlob(animationDelay));
     }
 
     IEnumerator InstantiateBlob(float delay)
@@ -100,16 +154,16 @@ public class MilkCarton : Enemy
             if (projectilePrefab != null && firePoint != null && playerTarget != null)
             {
                 Vector3 startPoint = firePoint.position;
-                Vector3 targetPoint = playerTarget.position;
 
-                Vector3 displacement = targetPoint - startPoint;
-                Vector3 initialVelocity = (displacement / projectileFlightTime) - (Physics.gravity * projectileFlightTime / 2f);
+                Vector2 randomOffset = Random.insideUnitCircle * attackSpreadRadius;
+                Vector3 targetPoint = playerTarget.position + new Vector3(randomOffset.x, 0, randomOffset.y);
 
                 GameObject blobObject = Instantiate(projectilePrefab, startPoint, Quaternion.identity);
                 MilkBlob blobScript = blobObject.GetComponent<MilkBlob>();
+
                 if (blobScript != null)
                 {
-                    blobScript.InitializeForArc(playerTarget, projectileFlightTime);
+                    blobScript.InitializeForArc(targetPoint, projectileFlightTime);
                 }
             }
 

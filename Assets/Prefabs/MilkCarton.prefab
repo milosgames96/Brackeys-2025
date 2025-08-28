@@ -41,15 +41,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 81987f0499173514abaffd8148d04f42, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 20.79
+      value: 20.18
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 81987f0499173514abaffd8148d04f42, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.67984
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 81987f0499173514abaffd8148d04f42, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 63.78
+      value: 75
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 81987f0499173514abaffd8148d04f42, type: 3}
       propertyPath: m_LocalRotation.w
@@ -83,6 +83,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: MilkCarton
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 81987f0499173514abaffd8148d04f42, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5926375742538598190, guid: 81987f0499173514abaffd8148d04f42, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
@@ -109,6 +113,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 81987f0499173514abaffd8148d04f42, type: 3}
       insertIndex: -1
       addedObject: {fileID: 6350957595764551060}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 81987f0499173514abaffd8148d04f42, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1663310950123901167}
   m_SourcePrefab: {fileID: 100100000, guid: 81987f0499173514abaffd8148d04f42, type: 3}
 --- !u!4 &7414064694066861684 stripped
 Transform:
@@ -174,7 +181,7 @@ NavMeshAgent:
   m_AgentTypeID: 0
   m_Radius: 2
   m_Speed: 10
-  m_Acceleration: 8
+  m_Acceleration: 3
   avoidancePriority: 50
   m_AngularSpeed: 200
   m_StoppingDistance: 0
@@ -197,13 +204,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8dd279fec2144d49bf1f99162607dc2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 33
+  health: 200
   damage: 10
   aggroRange: 60
   attackRange: 30
+  hitSound: {fileID: 8300000, guid: accce3f0c6292cc44839a54fcc1cd140, type: 3}
   projectilePrefab: {fileID: 3342753435271600239, guid: 3ca040ef33f0cbe4ba330581dcd11be7, type: 3}
   firePoint: {fileID: 531341060993060691}
-  fireRate: 1
+  fireCooldown: 4
+  projectileFlightTime: 2
+  shotsInBurst: 4
+  animationDelay: 0.5
+  attackSpreadRadius: 2
+  burstShotDelay: 0.2
 --- !u!114 &6350957595764551060
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -217,3 +230,154 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetTag: Enemy
+--- !u!82 &1663310950123901167
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7903777911074622670}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 2aced0db618291647952d9d69c9f6948, type: 3}
+  m_Resource: {fileID: 8300000, guid: 2aced0db618291647952d9d69c9f6948, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 60
+  Pan2D: 0
+  rolloffMode: 1
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0.01
+      value: 1
+      inSlope: -100.03984
+      outSlope: -100.03984
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.04191162
+      value: 0.46479797
+      inSlope: -25.00996
+      outSlope: -25.00996
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.08980087
+      value: 0.27053833
+      inSlope: -6.25249
+      outSlope: -6.25249
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.12382324
+      value: 0.18661499
+      inSlope: -1.5631225
+      outSlope: -1.5631225
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.21378723
+      value: 0.13290405
+      inSlope: -0.39078063
+      outSlope: -0.39078063
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.37178832
+      value: 0.08404541
+      inSlope: -0.09769516
+      outSlope: -0.09769516
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.64
+      value: 0.015625
+      inSlope: -0.02442379
+      outSlope: -0.02442379
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 0.01
+      inSlope: -0.010003988
+      outSlope: -0.010003988
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4

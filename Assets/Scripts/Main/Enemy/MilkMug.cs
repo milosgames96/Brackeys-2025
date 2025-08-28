@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using static UnityEngine.Rendering.DebugUI.Table;
 using static UnityEngine.UIElements.UxmlAttributeDescription;
@@ -5,6 +6,8 @@ using static UnityEngine.UIElements.UxmlAttributeDescription;
 public class MilkMug : Enemy
 {
     public float knockbackForce = 5f;
+    public float attackDelay = 0.5f; // Tweak values
+
     private float attackCooldown = 2f;
     private float nextAttackTime = 0f;
     private Rigidbody[] ragdollRigidbodies;
@@ -103,11 +106,14 @@ public class MilkMug : Enemy
         if (playerTarget == null) return;
 
         animator.SetTrigger("Attack");
-        PlayerManager playerManager = playerTarget.GetComponent<PlayerManager>();
-        if (playerManager != null)
+        AudioSource audioSource = GetComponent<AudioSource>();
+
+        if (audioSource != null)
         {
-            playerManager.TakeDamage(damage);
+            audioSource.PlayOneShot(audioSource.clip);
         }
+
+        StartCoroutine(PlayerInAttackRange(attackDelay));
 
         Rigidbody playerRb = playerTarget.GetComponent<Rigidbody>();
         if (playerRb != null)
@@ -128,4 +134,21 @@ public class MilkMug : Enemy
         }
     }
 
+    IEnumerator PlayerInAttackRange(float attackDelay)
+    {
+        yield return new WaitForSeconds(attackDelay);
+
+        float distanceToPlayer = Vector3.Distance(transform.position, playerTarget.position);
+
+        // Is player STILL in range after the delay?
+        // If so , apply damage
+        if (distanceToPlayer <= attackRange)
+        {
+            PlayerManager playerManager = playerTarget.GetComponent<PlayerManager>();
+            if (playerManager != null)
+            {
+                playerManager.TakeDamage(damage);
+            }
+        }
+    }
 }

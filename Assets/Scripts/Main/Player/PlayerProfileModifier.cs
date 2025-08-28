@@ -92,7 +92,7 @@ public class PlayerProfileModifier : ScriptableObject
                     playerProfile.health = calculator(valueModifier, playerProfile.health);
                     break;
                 case ValueModifier.Field.SPEED:
-                    playerProfile.moveSpeed = calculator(valueModifier, playerProfile.moveSpeed);
+                    playerProfile.maxSpeed = calculator(valueModifier, playerProfile.maxSpeed);
                     break;
                 case ValueModifier.Field.JUMP:
                     playerProfile.jumpForce = calculator(valueModifier, playerProfile.jumpForce);
