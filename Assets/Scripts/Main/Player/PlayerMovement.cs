@@ -25,6 +25,7 @@ public class PlayerMovement : MonoBehaviour
     // Make sure it's >=1 since Raycast point is 0,1,0
     public float groundCheckDistance = 1.1f;
     public float airMultiplier = 0.5f;
+    public float counterStrafeMultiplier = 2f;
 
     [Header("Audio")]
     public List<AudioClip> runningSounds;
@@ -87,13 +88,31 @@ public class PlayerMovement : MonoBehaviour
     {
 
         Vector3 intendedMoveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
+        Vector3 horizontalVelocity = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
 
-        // Apply forces depending if airborne or not
+        // Ground movement
         if (isGrounded)
-            rb.AddForce(intendedMoveDirection.normalized * playerProfile.movementForce, ForceMode.Acceleration);
-        else
-            rb.AddForce(intendedMoveDirection.normalized * playerProfile.movementForce * airMultiplier, ForceMode.Acceleration);
+        {
+            float directionDot = Vector3.Dot(intendedMoveDirection.normalized, horizontalVelocity.normalized);
 
+            // If we are trying to move in the opposite direction, apply the multiplier
+            // Gives a nice counter-strafe effect
+            if (directionDot < -0.1f) // A sharp turn
+            {
+                rb.AddForce(intendedMoveDirection.normalized * playerProfile.movementForce * counterStrafeMultiplier, ForceMode.Acceleration);
+            }
+            else // Otherwise, use normal force
+            {
+                rb.AddForce(intendedMoveDirection.normalized * playerProfile.movementForce, ForceMode.Acceleration);
+            }
+        }
+        // Air movement
+        else if (!isGrounded)
+        {
+            rb.AddForce(intendedMoveDirection.normalized * playerProfile.movementForce * airMultiplier, ForceMode.Acceleration);
+        }
+
+        // Braking force, to prevent sliding/drifting
         if (isGrounded && intendedMoveDirection == Vector3.zero)
         {
             // Calculate a force opposite to our current velocity
@@ -102,7 +121,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         // Speed limiter since we're using addForce
-        Vector3 horizontalVelocity = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
+        horizontalVelocity = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
         if (horizontalVelocity.magnitude > playerProfile.maxSpeed)
         {
             Vector3 limitedVelocity = horizontalVelocity.normalized * playerProfile.maxSpeed;

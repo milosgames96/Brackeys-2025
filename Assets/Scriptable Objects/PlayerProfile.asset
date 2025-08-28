@@ -15,5 +15,5 @@ MonoBehaviour:
   health: 100
   maxSpeed: 30
   jumpForce: 10
-  movementForce: 30
+  movementForce: 50
   brakingForce: 300
