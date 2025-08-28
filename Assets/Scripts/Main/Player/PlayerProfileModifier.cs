@@ -22,6 +22,25 @@ public class PlayerProfileModifier : ScriptableObject
             JUMP
         }
 
+        public ValueModifier()
+        {
+            
+        }
+
+        public ValueModifier(ValueModifierType type, Field field, float value)
+        {
+            this.type = type;
+            this.field = field;
+            this.value = value;
+        }
+
+        public ValueModifier(ValueModifier valueModifier)
+        {
+            this.type = valueModifier.type;
+            this.field = valueModifier.field;
+            this.value = valueModifier.value;
+        }
+
 
         public ValueModifierType type;
         public Field field;

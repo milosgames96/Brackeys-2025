@@ -8,4 +8,6 @@ public class PlayerProfile : ScriptableObject
     public float jumpForce;
     public float movementForce;
     public float brakingForce;
+    public float fillingCapacity;
+    public float fillingAmount;
 }
