@@ -59,6 +59,10 @@ public class Boss : MonoBehaviour
     [Header("Laser Attack Settings")]
     public float laserSweepDuration = 3f;
 
+    [Header("Win UI")]
+    public GameObject winScreenUI;
+    public GameObject zobara;
+
     void Start()
     {
         currentHealth = maxHealth;
@@ -210,6 +214,20 @@ public class Boss : MonoBehaviour
     {
         currentPhase = BossPhase.Defeated;
         Debug.Log("Boss has been defeated!");
+
+        // Activate the win screen
+        if (winScreenUI != null)
+        {
+            winScreenUI.SetActive(true);
+        }
+
+        // DELETE LATER
+        if (zobara != null)
+        {
+            zobara.SetActive(true);
+        }
+
+
         Destroy(gameObject, 2f);
     }
 
