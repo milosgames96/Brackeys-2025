@@ -18472,10 +18472,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 6179939647656390298, guid: 4e3c47d14b75b304fb6dd8f0b46a8ff4, type: 3}
-      propertyPath: maxHealth
-      value: 1200
-      objectReference: {fileID: 0}
     - target: {fileID: 8488760340786340060, guid: 4e3c47d14b75b304fb6dd8f0b46a8ff4, type: 3}
       propertyPath: m_Name
       value: Boss

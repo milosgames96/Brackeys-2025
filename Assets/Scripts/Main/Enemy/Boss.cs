@@ -6,6 +6,12 @@ using UnityEngine;
 // It will be drastically different
 public class Boss : MonoBehaviour
 {
+    private enum AttackType 
+    { 
+        Mortar, 
+        Laser, 
+        BasicProjectile 
+    }
     private enum BossPhase
     {
         Phase1,
@@ -16,11 +22,16 @@ public class Boss : MonoBehaviour
     private BossPhase currentPhase;
     private bool isAwake = false;
     private Transform playerTarget;
+    private float nextFireTime = 0f;
 
     [Header("Boss Stats")]
     public float maxHealth = 3000f;
     private float currentHealth;
     private bool isTransitioning = false;
+
+    [Header("Combat")]
+    public float fireCooldown = 4f;
+    public Transform firePoint;
 
     [Header("Butt Slam Attack")]
     public float slamRiseHeight = 20f;
@@ -29,6 +40,18 @@ public class Boss : MonoBehaviour
     public float shockwaveRadius = 30f;
     public float slamDamage = 50f;
     public GameObject shockwaveVFX; // Will probably implement later
+
+    [Header("Attack Prefabs")]
+    public GameObject mortarProjectilePrefab;
+    public GameObject basicProjectilePrefab;
+    public GameObject laserPrefab;
+
+    [Header("Mortar Attack Settings")]
+    public float projectileFlightTime = 2f;
+    public int shotsInBurst = 5;
+    public float burstShotDelay = 0.3f;
+    public float attackSpreadRadius = 3f;
+    public float mortarAnimationDelay = 0.75f;
 
     void Start()
     {
@@ -60,13 +83,39 @@ public class Boss : MonoBehaviour
         switch (currentPhase)
         {
             case BossPhase.Phase1:
-                DoPhase1Behavior();
+                HandleAttacks();
                 break;
             case BossPhase.Phase2:
-                DoPhase2Behavior();
+                HandleAttacks();
                 break;
             case BossPhase.Phase3:
-                DoPhase3Behavior();
+                HandleAttacks();
+                break;
+        }
+    }
+
+    private void HandleAttacks()
+    {
+        if (Time.time >= nextFireTime)
+        {
+            ChooseAndExecuteAttack();
+            nextFireTime = Time.time + fireCooldown;
+        }
+    }
+
+    private void ChooseAndExecuteAttack()
+    {
+        AttackType chosenAttack = (AttackType)Random.Range(0, 3);
+        switch (chosenAttack)
+        {
+            case AttackType.Mortar:
+                StartCoroutine(MortarAttack());
+                break;
+            case AttackType.Laser:
+                StartCoroutine(LaserAttack());
+                break;
+            case AttackType.BasicProjectile:
+                StartCoroutine(BasicProjectileAttack());
                 break;
         }
     }
@@ -109,12 +158,45 @@ public class Boss : MonoBehaviour
         currentPhase = nextPhase;
 
         Debug.Log("Transitioning to " + nextPhase.ToString() + ". Performing BUTT SLAM!");
-        
-        // Butt slamma logic here
 
-        yield return new WaitForSeconds(1.0f); // Placeholder for future animation timing
+        // Original position
+        float originalY = transform.position.y;
+        Vector3 upPosition = transform.position + Vector3.up * slamRiseHeight;
 
-        Debug.Log("Transition complete. Now in " + nextPhase.ToString());
+        // Jump up
+        while (transform.position.y < upPosition.y - 0.1f)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, upPosition, slamRiseSpeed * Time.deltaTime);
+            yield return null;
+        }
+
+        // Slamma
+        Vector3 downPosition = new Vector3(transform.position.x, originalY, transform.position.z);
+        while (transform.position.y > downPosition.y + 0.1f)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, downPosition, slamFallSpeed * Time.deltaTime);
+            yield return null;
+        }
+
+        transform.position = downPosition;
+
+        // Future VFX here
+        if (shockwaveVFX != null)
+        {
+            Instantiate(shockwaveVFX, transform.position, Quaternion.identity);
+        }
+
+        float distanceToPlayer = Vector3.Distance(transform.position, playerTarget.position);
+        if (distanceToPlayer <= shockwaveRadius)
+        {
+            PlayerManager player = playerTarget.GetComponent<PlayerManager>();
+            if (player != null)
+            {
+                player.TakeDamage(slamDamage);
+            }
+        }
+
+        Debug.Log("Transition complete. Next: " + nextPhase.ToString());
         isTransitioning = false;
     }
 
@@ -125,22 +207,49 @@ public class Boss : MonoBehaviour
         Destroy(gameObject, 2f);
     }
 
-    // PLACEHOLDERS
-    private void DoPhase1Behavior()
-    {
-    }
-    private void DoPhase2Behavior()
-    {
-    }
-    private void DoPhase3Behavior()
-    {
-    }
-
     public void WakeUp()
     {
         if (isAwake) return;
 
         isAwake = true;
         Debug.Log("Whomst've awakened the ancient one");
+    }
+
+    private IEnumerator MortarAttack()
+    {
+        Debug.Log("Boss is using Mortar Attack!");
+        yield return new WaitForSeconds(mortarAnimationDelay);
+
+        for (int i = 0; i < shotsInBurst; i++)
+        {
+            if (mortarProjectilePrefab != null)
+            {
+                Vector2 randomOffset = Random.insideUnitCircle * attackSpreadRadius;
+                Vector3 targetPoint = playerTarget.position + new Vector3(randomOffset.x, 0, randomOffset.y);
+                GameObject blobObject = Instantiate(mortarProjectilePrefab, firePoint.position, Quaternion.identity);
+                MilkBlob blobScript = blobObject.GetComponent<MilkBlob>();
+                if (blobScript != null)
+                {
+                    // Same Milkblob arc logic as the Carton
+                    blobScript.InitializeForArc(targetPoint, projectileFlightTime);
+                }
+            }
+            if (i < shotsInBurst - 1)
+            {
+                yield return new WaitForSeconds(burstShotDelay);
+            }
+        }
+    }
+
+    private IEnumerator LaserAttack()
+    {
+        Debug.Log("Boss is using Laser Attack!");
+        yield return new WaitForSeconds(1f);
+    }
+
+    private IEnumerator BasicProjectileAttack()
+    {
+        Debug.Log("Boss is using Basic Projectile Attack!");
+        yield return new WaitForSeconds(0.5f);
     }
 }
