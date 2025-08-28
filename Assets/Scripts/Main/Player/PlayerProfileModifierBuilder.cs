@@ -18,14 +18,20 @@ public class PlayerProfileModifierBuilder
     {
         new PlayerProfileModifier.ValueModifier(PlayerProfileModifier.ValueModifier.ValueModifierType.FLAT, PlayerProfileModifier.ValueModifier.Field.HEALTH, 4)
     };
+    private List<PlayerProfileModifier.ValueModifier> HoleBaseModifiers = new List<PlayerProfileModifier.ValueModifier>()
+    {
+        new PlayerProfileModifier.ValueModifier(PlayerProfileModifier.ValueModifier.ValueModifierType.FLAT, PlayerProfileModifier.ValueModifier.Field.HEALTH, -30)
+    };
 
     private PlayerProfileModifier playerProfileModifier;
     private Dictionary<Collectable.CollectableType, int> fillings;
+    private Dictionary<Collectable.CollectableType, int> upgrades;
 
     public PlayerProfileModifierBuilder()
     {
         playerProfileModifier = ScriptableObject.CreateInstance<PlayerProfileModifier>();
         fillings = new Dictionary<Collectable.CollectableType, int>();
+        upgrades = new Dictionary<Collectable.CollectableType, int>();
     }
 
     public PlayerProfileModifierBuilder AddFilling(Collectable collectable, int amount)
@@ -48,6 +54,26 @@ public class PlayerProfileModifierBuilder
         return this;
     }
 
+    public PlayerProfileModifierBuilder AddUpgrade(Collectable collectable, int amount)
+    {
+        if (collectable.IsUpgrade())
+        {
+            upgrades[collectable.collectableType] = amount;
+        }
+        UpdateValueModifiers();
+        return this;
+    }
+
+    public PlayerProfileModifierBuilder RemoveUpgrade(Collectable collectable)
+    {
+        if (collectable.IsUpgrade())
+        {
+            upgrades.Remove(collectable.collectableType);
+        }
+        UpdateValueModifiers();
+        return this;
+    }
+
     public PlayerProfileModifier Peek()
     {
         return playerProfileModifier;
@@ -62,9 +88,22 @@ public class PlayerProfileModifierBuilder
 
     private void UpdateValueModifiers()
     {
+        //fillings
         List<PlayerProfileModifier.ValueModifier> fillingModifiers = fillings
             .Select(pair => ParseFillingModifiers(pair.Key, pair.Value))
             .SelectMany(inner => inner)
+            .ToList();
+        //upgrades
+        List<PlayerProfileModifier.ValueModifier> upgradeModifiers = upgrades
+            .Select(pair => ParseUpgradeModifiers(pair.Key, pair.Value))
+            .SelectMany(inner => inner)
+            .ToList();
+        //all
+        List<PlayerProfileModifier.ValueModifier> allModifiers = new List<PlayerProfileModifier.ValueModifier>();
+        allModifiers.AddRange(fillingModifiers);
+        allModifiers.AddRange(upgradeModifiers);
+        //group and collect
+        playerProfileModifier.valueModifiers = allModifiers
             .GroupBy(mod => new Tuple<PlayerProfileModifier.ValueModifier.Field, PlayerProfileModifier.ValueModifier.ValueModifierType>(mod.field, mod.type))
             .Select(entry =>
             {
@@ -75,7 +114,6 @@ public class PlayerProfileModifierBuilder
                 return collectedValueModifier;
             })
             .ToList();
-        playerProfileModifier.valueModifiers = fillingModifiers;
     }
 
     private List<PlayerProfileModifier.ValueModifier> ParseFillingModifiers(Collectable.CollectableType collectableType, int amount)
@@ -86,6 +124,18 @@ public class PlayerProfileModifierBuilder
                 return ApplyAmountToBaseModifiers(JamBaseModifiers, amount);
             case Collectable.CollectableType.CHOCOLATE_FILLING:
                 return ApplyAmountToBaseModifiers(ChocolateBaseModifiers, amount);
+            default:
+                return new List<PlayerProfileModifier.ValueModifier>();
+
+        }
+    }
+
+    private List<PlayerProfileModifier.ValueModifier> ParseUpgradeModifiers(Collectable.CollectableType collectableType, int amount)
+    {
+        switch (collectableType)
+        {
+            case Collectable.CollectableType.HOLES_UPGRADE:
+                return ApplyAmountToBaseModifiers(HoleBaseModifiers, amount);
             default:
                 return new List<PlayerProfileModifier.ValueModifier>();
 

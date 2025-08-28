@@ -66,12 +66,13 @@ public class PlayerManager : MonoBehaviour
         switch (other.tag)
         {
             case "PickUp":
+                Debug.Log("tu");
                 PickUp pickUp = other.gameObject.GetComponent<PickUp>();
                 playerInventory.InsertCollectable(pickUp.collectable);
                 Destroy(other.gameObject);
                 break;
             case "UpgradeChamber":
-                playerUpgradeFactory.Display(playerInventory.GetFillings(), playerProfile, other.gameObject.transform.Find("ChamberCamera").gameObject, ChamberDoneAndApplyCallback);
+                playerUpgradeFactory.Display(playerInventory.GetFillings(), playerInventory.GetUpgrades(), playerProfile, other.gameObject, ChamberDoneAndApplyCallback);
                 HideWhileInChamber();
                 break;
         }
@@ -103,9 +104,13 @@ public class PlayerManager : MonoBehaviour
         Cursor.visible = true;
     }
 
-    private void ChamberDoneAndApplyCallback(PlayerProfileModifier playerProfileModifier)
+    private void ChamberDoneAndApplyCallback(PlayerProfileModifier playerProfileModifier, List<Collectable> consumedCollectables)
     {
         ExitChamber();
         AddPlayerProfileMoidifer(playerProfileModifier);
+        foreach (Collectable collectable in consumedCollectables)
+        {
+            playerInventory.RemoveCollectable(collectable);
+        }
     }
 }

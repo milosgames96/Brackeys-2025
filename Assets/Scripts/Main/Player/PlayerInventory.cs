@@ -22,6 +22,14 @@ public class PlayerInventory
             .ToList();
     }
 
+    public List<Collectable> GetUpgrades()
+    {
+        return collectables
+            .Select(entry => new Collectable(entry.Key, entry.Value))
+            .Where(col => col.IsUpgrade())
+            .ToList();
+    }
+
     public void InsertCollectable(Collectable collectable)
     {
         if (collectables.ContainsKey(collectable.collectableType))
@@ -34,11 +42,39 @@ public class PlayerInventory
         }
     }
 
+    public void InsertCollectable(Collectable.CollectableType collectableType, int amount)
+    {
+        if (collectables.ContainsKey(collectableType))
+        {
+            collectables[collectableType] += amount;
+        }
+        else
+        {
+            collectables.Add(collectableType, amount);
+        }
+    }
+
     public void RemoveCollectable(Collectable collectable)
     {
         if (collectables.ContainsKey(collectable.collectableType))
         {
             collectables[collectable.collectableType] = Math.Max(0, collectables[collectable.collectableType] - collectable.amount);
+            if (collectables[collectable.collectableType] <= 0)
+            {
+                collectables.Remove(collectable.collectableType);
+            }
+        }
+    }
+
+    public void RemoveCollectable(Collectable.CollectableType collectableType, int amount)
+    {
+        if (collectables.ContainsKey(collectableType))
+        {
+            collectables[collectableType] = Math.Max(0, collectables[collectableType] - amount);
+            if (collectables[collectableType] <= 0)
+            {
+                collectables.Remove(collectableType);
+            }
         }
     }
 }
