@@ -1,14 +1,28 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerInventory
 {
     private Dictionary<Collectable.CollectableType, int> collectables = new Dictionary<Collectable.CollectableType, int>();
-    private int ammo;
 
-    public void insertCollectable(Collectable collectable)
+    public int GetAmmo()
+    {
+        return collectables.ContainsKey(Collectable.CollectableType.AMMO) ? collectables[Collectable.CollectableType.AMMO] : 0;
+    }
+
+    public List<Collectable> GetFillings()
+    {
+        return collectables
+            .Select(entry => new Collectable(entry.Key, entry.Value))
+            .Where(col => col.IsFilling())
+            .ToList();
+    }
+
+    public void InsertCollectable(Collectable collectable)
     {
         if (collectables.ContainsKey(collectable.collectableType))
         {
@@ -20,7 +34,7 @@ public class PlayerInventory
         }
     }
 
-    public void removeCollectable(Collectable collectable)
+    public void RemoveCollectable(Collectable collectable)
     {
         if (collectables.ContainsKey(collectable.collectableType))
         {

@@ -24,7 +24,7 @@ public class PlayerProfileModifier : ScriptableObject
 
         public ValueModifier()
         {
-            
+
         }
 
         public ValueModifier(ValueModifierType type, Field field, float value)
@@ -55,6 +55,13 @@ public class PlayerProfileModifier : ScriptableObject
     public bool isActive;
     private PlayerProfile playerProfile;
     private float remainingDuration;
+
+    public PlayerProfileModifier()
+    {
+        valueModifiers = new List<ValueModifier>();
+        isActive = true;
+        isTimed = false;
+    }
 
     public void Apply(PlayerProfile playerProfile)
     {

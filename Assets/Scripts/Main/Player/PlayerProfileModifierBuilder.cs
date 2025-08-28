@@ -24,7 +24,7 @@ public class PlayerProfileModifierBuilder
 
     public PlayerProfileModifierBuilder()
     {
-        playerProfileModifier = new PlayerProfileModifier();
+        playerProfileModifier = ScriptableObject.CreateInstance<PlayerProfileModifier>();
         fillings = new Dictionary<Collectable.CollectableType, int>();
     }
 
@@ -56,7 +56,7 @@ public class PlayerProfileModifierBuilder
     public PlayerProfileModifier Build()
     {
         PlayerProfileModifier completedPlayerProfileModifier = playerProfileModifier;
-        playerProfileModifier = new PlayerProfileModifier();
+        playerProfileModifier = ScriptableObject.CreateInstance<PlayerProfileModifier>();
         return completedPlayerProfileModifier;
     }
 

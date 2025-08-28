@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System.Text;
+using System;
 
 public class PlayerUpgradeFactory : MonoBehaviour
 {
@@ -13,21 +14,54 @@ public class PlayerUpgradeFactory : MonoBehaviour
     public Slider fillingCapacitySlider;
     public GameObject fillingCapacityOverfilledText;
     public TextMeshProUGUI statsPreviewText;
+    public Button doneButton;
     private List<FillingEntryController> fillingEntryControllers = new List<FillingEntryController>();
     private PlayerProfile playerProfile;
     private PlayerProfileModifierBuilder fillingsPlayerProfileModifierBuilder;
+    private GameObject chamberCamera;
+    private Action<PlayerProfileModifier> DoneCallback;
 
-    public void Init(PlayerProfile playerProfile)
+    void Start()
     {
-        this.playerProfile = playerProfile;
-        this.fillingCapacitySlider.minValue = 0;
-        this.fillingCapacitySlider.maxValue = playerProfile.fillingCapacity;
-        this.fillingCapacitySlider.value = playerProfile.fillingAmount;
-        this.fillingCapacityOverfilledText.SetActive(false);
-        this.fillingsPlayerProfileModifierBuilder = new PlayerProfileModifierBuilder();
+        fillingCapacitySlider.gameObject.SetActive(false);
+        fillingCapacityOverfilledText.SetActive(false);
+        doneButton.gameObject.SetActive(false);
+        fillingsPlayerProfileModifierBuilder = new PlayerProfileModifierBuilder();
     }
 
-    public void PopulateFillingSliders(List<Collectable> fillings)
+    public void Display(List<Collectable> fillings, PlayerProfile playerProfile, GameObject chamberCamera, Action<PlayerProfileModifier> DoneCallback)
+    {
+        this.playerProfile = playerProfile;
+        this.chamberCamera = chamberCamera;
+        this.DoneCallback = DoneCallback;
+        chamberCamera.SetActive(true);
+        fillingCapacitySlider.gameObject.SetActive(true);
+        fillingCapacitySlider.minValue = 0;
+        fillingCapacitySlider.maxValue = playerProfile.fillingCapacity;
+        fillingCapacitySlider.value = playerProfile.fillingAmount;
+        doneButton.onClick.AddListener(DoneAndApply);
+        doneButton.gameObject.SetActive(true);
+        PopulateFillingSliders(fillings);
+    }
+
+    public void Hide()
+    {
+        chamberCamera.SetActive(false);
+        foreach (FillingEntryController fillingEntryController in fillingEntryControllers)
+        {
+            Destroy(fillingEntryController.gameObject);
+        }
+        fillingEntryControllers.Clear();
+    }
+
+    private void DoneAndApply()
+    {
+        PlayerProfileModifier playerProfileModifier = fillingsPlayerProfileModifierBuilder.Build();
+        Hide();
+        DoneCallback(playerProfileModifier);
+    }
+
+    private void PopulateFillingSliders(List<Collectable> fillings)
     {
         Vector3 currentEntryPosition = Vector3.zero;
         foreach (Collectable filling in fillings)

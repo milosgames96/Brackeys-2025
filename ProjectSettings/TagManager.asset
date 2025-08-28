@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Enemy
   - Blob
+  - UpgradeChamber
   layers:
   - Default
   - TransparentFX

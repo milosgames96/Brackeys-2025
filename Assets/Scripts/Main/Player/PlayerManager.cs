@@ -1,19 +1,14 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(AudioSource))]
 public class PlayerManager : MonoBehaviour
 {
     public PlayerHUD playerHUD;
     public PlayerUpgradeFactory playerUpgradeFactory;
     public PlayerMovement playerMovement;
     public PlayerProfile playerProfileTemplate;
-
-    [Header("Audio")]
-    public List<AudioClip> damageSounds;
-    private AudioSource audioSource;
-
     private List<PlayerProfileModifier> playerProfileModifiers;
     [HideInInspector]
     public bool isAlive;
@@ -23,16 +18,10 @@ public class PlayerManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        audioSource = GetComponent<AudioSource>();
         this.isAlive = true;
         this.playerProfileModifiers = new List<PlayerProfileModifier>() { };
         this.playerProfile = Instantiate(playerProfileTemplate);
         this.playerMovement.playerProfile = this.playerProfile;
-        this.playerUpgradeFactory.Init(playerProfile);
-        this.playerUpgradeFactory.PopulateFillingSliders(new List<Collectable>() {
-            new Collectable(Collectable.CollectableType.CRUMB, 123),
-            new Collectable(Collectable.CollectableType.CHOCOLATE_FILLING, 6),
-            new Collectable(Collectable.CollectableType.JAM_FILLING, 4) });
     }
 
     // Update is called once per frame
@@ -66,17 +55,40 @@ public class PlayerManager : MonoBehaviour
     public void TakeDamage(float amount)
     {
         playerProfile.health = Mathf.Max(playerProfile.health -= amount, 0);
+    }
 
-        // Play a random 1/3 sound from the list
-        if (damageSounds != null && damageSounds.Count > 0)
+    protected virtual void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "PickUp")
         {
-            int randomIndex = Random.Range(0, damageSounds.Count);
-            AudioClip randomClip = damageSounds[randomIndex];
-            if (randomClip != null)
-            {
-                audioSource.PlayOneShot(randomClip);
-            }
+
         }
+        switch (other.tag)
+        {
+            case "PickUp":
+                PickUp pickUp = other.gameObject.GetComponent<PickUp>();
+                playerInventory.InsertCollectable(pickUp.collectable);
+                Destroy(other.gameObject);
+                break;
+            case "UpgradeChamber":
+                playerUpgradeFactory.Display(playerInventory.GetFillings(), playerProfile, other.gameObject.transform.Find("ChamberCamera").gameObject, ChamberDoneAndApplyCallback);
+                HideWhileInChamber();
+                break;
+        }
+    }
+
+    private void ExitChamber()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+        gameObject.SetActive(true);
+    }
+
+    private void HideWhileInChamber()
+    {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+        gameObject.SetActive(false);
     }
 
     private void Die()
@@ -89,5 +101,11 @@ public class PlayerManager : MonoBehaviour
         // Unlock and show the cursor
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
+    }
+
+    private void ChamberDoneAndApplyCallback(PlayerProfileModifier playerProfileModifier)
+    {
+        ExitChamber();
+        AddPlayerProfileMoidifer(playerProfileModifier);
     }
 }
