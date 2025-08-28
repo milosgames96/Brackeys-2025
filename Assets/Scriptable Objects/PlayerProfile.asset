@@ -13,10 +13,9 @@ MonoBehaviour:
   m_Name: PlayerProfile
   m_EditorClassIdentifier: Assembly-CSharp::PlayerProfile
   health: 100
-
   maxSpeed: 30
   jumpForce: 10
   movementForce: 50
   brakingForce: 300
-  fillingCapacity: 100
-  fillingAmount: 0
+  fillingCapacity: 200
+  fillingAmount: 50

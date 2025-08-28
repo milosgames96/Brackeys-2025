@@ -34,15 +34,16 @@ public class Projectile : MonoBehaviour
             }
         }
 
-        // It's too much splatter
+        Boss boss = other.GetComponent<Boss>();
+        if (boss != null)
+        {
+            boss.TakeDamage(damage);
 
-        //else
-        //{
-        //    if (defaultEffectPrefab != null)
-        //    {
-        //        Instantiate(defaultEffectPrefab, transform.position, transform.rotation);
-        //    }
-        //}
+            if (hitEffectPrefab != null)
+            {
+                Instantiate(hitEffectPrefab, transform.position, transform.rotation);
+            }
+        }
 
         Destroy(gameObject);
     }
