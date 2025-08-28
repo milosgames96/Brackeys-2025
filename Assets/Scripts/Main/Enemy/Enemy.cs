@@ -21,6 +21,11 @@ public abstract class Enemy : MonoBehaviour
     public float aggroRange = 40f;
     public float attackRange = 30f;
 
+    [Header("Detection")]
+    public float visionAngle = 90f;
+    public LayerMask visionMask;
+    public Transform eyeLocation;
+
     [Header("Audio")]
     public AudioClip hitSound;
     protected AudioSource audioSource;
@@ -52,13 +57,15 @@ public abstract class Enemy : MonoBehaviour
     {
         if (playerTarget == null) return;
 
+        bool canSeePlayer = CanSeePlayer();
+
         switch (currentState)
         {
             case State.Idle:
-                HandleIdleState();
+                HandleIdleState(canSeePlayer);
                 break;
             case State.Chasing:
-                HandleChasingState();
+                HandleChasingState(canSeePlayer);
                 break;
             case State.Attacking:
                 HandleAttackingState();
@@ -71,8 +78,8 @@ public abstract class Enemy : MonoBehaviour
         //Debug.Log(currentState);
     }
 
-    protected abstract void HandleIdleState();
-    protected abstract void HandleChasingState();
+    protected abstract void HandleIdleState(bool canSeePlayer);
+    protected abstract void HandleChasingState(bool canSeePlayer);
     protected abstract void HandleAttackingState();
     protected abstract void HandleDeathState();
 
@@ -120,5 +127,41 @@ public abstract class Enemy : MonoBehaviour
 
         audioSource.PlayOneShot(clip);
         Destroy(soundObject, clip.length);
+    }
+
+    private bool CanSeePlayer()
+    {
+        if (playerTarget == null) return false;
+
+        Vector3 directionToPlayer = playerTarget.position - eyeLocation.position;
+        float distanceToPlayer = directionToPlayer.magnitude;
+
+        // Check if the player is outside our aggro range
+        if (distanceToPlayer > aggroRange)
+        {
+            return false;
+        }
+
+        // Angle check
+        float angleToPlayer = Vector3.Angle(eyeLocation.forward, directionToPlayer);
+
+        // If the player is outside the vision cone, we can't see them
+        if (angleToPlayer > visionAngle / 2f)
+        {
+            return false;
+        }
+
+        // Obstruction check using raycast
+        if (Physics.Raycast(eyeLocation.position, directionToPlayer.normalized, out RaycastHit hit, distanceToPlayer, visionMask))
+        {
+            // If the raycast hits the player, then we have a clear line of sight
+            if (hit.transform == playerTarget)
+            {
+                return true;
+            }
+        }
+
+        // If the raycast hit a wall or something else, de-aggro
+        return false;
     }
 }

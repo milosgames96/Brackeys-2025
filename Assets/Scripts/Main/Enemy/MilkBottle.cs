@@ -28,7 +28,7 @@ public class MilkBottle : Enemy
         base.Update();
         HandleRollingSound();
     }
-    protected override void HandleIdleState()
+    protected override void HandleIdleState(bool canSeePlayer)
     {
         if (isDead)
         {
@@ -40,12 +40,12 @@ public class MilkBottle : Enemy
         animator.SetBool("Running", false);
 
         float distanceToPlayer = Vector3.Distance(transform.position, playerTarget.position);
-        if (distanceToPlayer <= aggroRange)
+        if (distanceToPlayer <= aggroRange && canSeePlayer)
         {
             currentState = State.Chasing;
         }
     }
-    protected override void HandleChasingState()
+    protected override void HandleChasingState(bool canSeePlayer)
     {
         if (isDead)
         {
@@ -65,7 +65,7 @@ public class MilkBottle : Enemy
         {
             PrimingState();
         }
-        else if (distanceToPlayer > aggroRange)
+        else if (distanceToPlayer > aggroRange || !canSeePlayer)
         {
             currentState = State.Idle;
         }
