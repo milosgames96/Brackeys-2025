@@ -69,6 +69,7 @@ public class PlayerManager : MonoBehaviour
                 Debug.Log("tu");
                 PickUp pickUp = other.gameObject.GetComponent<PickUp>();
                 playerInventory.InsertCollectable(pickUp.collectable);
+                playerHUD.NotifyPickUp(pickUp.collectable);
                 Destroy(other.gameObject);
                 break;
             case "UpgradeChamber":

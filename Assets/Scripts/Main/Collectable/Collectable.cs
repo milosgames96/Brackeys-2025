@@ -9,6 +9,7 @@ public class Collectable : ScriptableObject
         CRUMB,
         CHOCOLATE_FILLING,
         JAM_FILLING,
+        YOGURT_FILLING,
         CHOCOLATE_UPGRADE,
         HOLES_UPGRADE,
         AMMO,
@@ -29,7 +30,8 @@ public class Collectable : ScriptableObject
     public Boolean IsFilling()
     {
         return collectableType.Equals(CollectableType.JAM_FILLING) ||
-            collectableType.Equals(CollectableType.CHOCOLATE_FILLING);
+            collectableType.Equals(CollectableType.CHOCOLATE_FILLING) ||
+            collectableType.Equals(CollectableType.YOGURT_FILLING);
     }
 
     public Boolean IsUpgrade()

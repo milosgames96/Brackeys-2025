@@ -6,6 +6,8 @@ public class PlayerHUD : MonoBehaviour
 
     public TextMeshProUGUI healthText;
     public GameObject deathScreenUI;
+    public GameObject notificationsContainer;
+    public GameObject pickUpNotificationPrefab;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -28,5 +30,12 @@ public class PlayerHUD : MonoBehaviour
     public void DisplayDeathScreen()
     {
         deathScreenUI.SetActive(true);
+    }
+
+    public void NotifyPickUp(Collectable collectable)
+    {
+        GameObject pickUpNotification = Instantiate(pickUpNotificationPrefab, notificationsContainer.transform);
+        TextMeshProUGUI pickUpNotificationTest = pickUpNotification.GetComponent<TextMeshProUGUI>();
+        pickUpNotificationTest.text = collectable.collectableType.ToString() + " x" + collectable.amount;
     }
 }
