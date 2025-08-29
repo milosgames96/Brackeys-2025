@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47dd02be1eeb3504fb3e7b59c954a519, type: 3}
   m_Name: ChocolateFilling
   m_EditorClassIdentifier: Assembly-CSharp::Collectable
-  collectableType: 2
-  amount: 3
+  collectableType: 1
+  amount: 1

@@ -163,7 +163,7 @@ public class PlayerUpgradeFactory : MonoBehaviour
             if (valueModifier.type == PlayerProfileModifier.ValueModifier.ValueModifierType.PERCENTAGE)
             {
                 statsStringBuilder.Append(" %");
-            }
+            } 
             statsStringBuilder.AppendLine();
         }
         statsPreviewText.text = statsStringBuilder.ToString();
