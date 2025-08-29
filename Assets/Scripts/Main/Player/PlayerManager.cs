@@ -14,14 +14,17 @@ public class PlayerManager : MonoBehaviour
     public bool isAlive;
     private PlayerProfile playerProfile;
     private PlayerInventory playerInventory = new PlayerInventory();
+    private WeaponManager weaponManager;
+    public GameObject weaponContainer;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        this.isAlive = true;
-        this.playerProfileModifiers = new List<PlayerProfileModifier>() { };
-        this.playerProfile = Instantiate(playerProfileTemplate);
-        this.playerMovement.playerProfile = this.playerProfile;
+        isAlive = true;
+        playerProfileModifiers = new List<PlayerProfileModifier>() { };
+        playerProfile = Instantiate(playerProfileTemplate);
+        playerMovement.playerProfile = playerProfile;
+        weaponManager = GetComponent<WeaponManager>();
     }
 
     // Update is called once per frame
@@ -40,9 +43,23 @@ public class PlayerManager : MonoBehaviour
             }
         }
         playerHUD.DisplayHealth(playerProfile.health);
+        playerHUD.DisplayAmmo(playerInventory.GetAmmo(), playerProfile.maxAmmo);
         if (playerProfile.health <= 0 && isAlive)
         {
             Die();
+        }
+        float scroll = Input.GetAxis("Mouse ScrollWheel");
+        if (scroll > 0f)
+        {
+            weaponManager.NextWeapon();
+        }
+        else if (scroll < 0f)
+        {
+            weaponManager.PreviousWeapon();
+        }
+        if (Input.GetMouseButton(0))
+        {
+            weaponManager.PullTheTrigger(WeaponShotCallback, playerInventory.GetAmmo());
         }
     }
 
@@ -59,16 +76,15 @@ public class PlayerManager : MonoBehaviour
 
     protected virtual void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "PickUp")
-        {
-
-        }
         switch (other.tag)
         {
             case "PickUp":
-                Debug.Log("tu");
                 PickUp pickUp = other.gameObject.GetComponent<PickUp>();
                 playerInventory.InsertCollectable(pickUp.collectable);
+                if (pickUp.collectable.IsWeapon())
+                {
+                    weaponManager.AddWeapon(pickUp.collectable);
+                }
                 playerHUD.NotifyPickUp(pickUp.collectable);
                 Destroy(other.gameObject);
                 break;
@@ -113,5 +129,10 @@ public class PlayerManager : MonoBehaviour
         {
             playerInventory.RemoveCollectable(collectable);
         }
+    }
+
+    private void WeaponShotCallback(float ammoUsed)
+    {
+        playerInventory.RemoveCollectable(Collectable.CollectableType.AMMO, (int)ammoUsed);
     }
 }

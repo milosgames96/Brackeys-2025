@@ -4,6 +4,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Collectable", menuName = "Scriptable Objects/Collectable")]
 public class Collectable : ScriptableObject
 {
+    [Serializable]
     public enum CollectableType
     {
         CRUMB,

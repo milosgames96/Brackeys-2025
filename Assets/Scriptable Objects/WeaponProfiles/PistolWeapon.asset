@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 002af5f46e318884c8450042f6276933, type: 3}
+  m_Name: PistolWeapon
+  m_EditorClassIdentifier: Assembly-CSharp::WeaponProfile
+  weaponType: 0
+  baseDamage: 5
+  critChance: 12
+  accuracy: 75
+  shotsPerSecond: 2
+  ammoConsumption: 1
+  weaponPrefab: {fileID: 5776089739787361468, guid: 8da3200a92860024bbfd2fdf9f0792ad, type: 3}
