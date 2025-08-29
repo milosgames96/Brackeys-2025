@@ -10,4 +10,5 @@ public class PlayerProfile : ScriptableObject
     public float brakingForce;
     public float fillingCapacity;
     public float fillingAmount;
+    public float maxAmmo;
 }

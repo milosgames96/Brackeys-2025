@@ -19,3 +19,4 @@ MonoBehaviour:
   brakingForce: 300
   fillingCapacity: 200
   fillingAmount: 50
+  maxAmmo: 100

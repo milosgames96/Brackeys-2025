@@ -5,6 +5,7 @@ public class PlayerHUD : MonoBehaviour
 {
 
     public TextMeshProUGUI healthText;
+    public TextMeshProUGUI ammoText;
     public GameObject deathScreenUI;
     public GameObject notificationsContainer;
     public GameObject pickUpNotificationPrefab;
@@ -24,7 +25,11 @@ public class PlayerHUD : MonoBehaviour
     public void DisplayHealth(float health)
     {
         healthText.text = "Health: " + health;
+    }
 
+    public void DisplayAmmo(float currentAmmo, float maxAmmo)
+    {
+        ammoText.text = "Ammo: " + ((currentAmmo / maxAmmo) * 100) + "%";
     }
 
     public void DisplayDeathScreen()
