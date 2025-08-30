@@ -18,9 +18,12 @@ public class PlayerManager : MonoBehaviour
     private WeaponManager weaponManager;
     public GameObject weaponContainer;
     public GameObject chamberEnterText;
+    public GameObject ropeEnterText;
 
     private bool isNearChamber;
+    private bool isNearRope;
     private GameObject chamberObject;
+    private GameObject ropeObject;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -52,6 +55,7 @@ public class PlayerManager : MonoBehaviour
         playerHUD.DisplayHealth(playerProfile.health);
         playerHUD.DisplayAmmo(playerInventory.GetAmmo(), playerProfile.maxAmmo);
         chamberEnterText.SetActive(isNearChamber);
+        ropeEnterText.SetActive(isNearRope);
         if (playerProfile.health <= 0 && isAlive)
         {
             Die();
@@ -69,10 +73,19 @@ public class PlayerManager : MonoBehaviour
         {
             weaponManager.PullTheTrigger(WeaponShotCallback, playerInventory.GetAmmo());
         }
-        if (Input.GetKeyDown(KeyCode.E) && isNearChamber)
+        if (Input.GetKeyDown(KeyCode.E))
         {
-            EnterChamber();
-            isNearChamber = false;
+            if (isNearChamber)
+            {
+                EnterChamber();
+                isNearChamber = false;
+            }
+            else if (isNearRope)
+            {
+                EnterRope();
+                isNearRope = false;
+            }
+
         }
     }
 
@@ -105,6 +118,10 @@ public class PlayerManager : MonoBehaviour
                 isNearChamber = true;
                 chamberObject = other.gameObject;
                 break;
+            case "Rope":
+                isNearRope = true;
+                ropeObject = other.gameObject;
+                break;
         }
     }
 
@@ -114,6 +131,9 @@ public class PlayerManager : MonoBehaviour
         {
             case "UpgradeChamber":
                 isNearChamber = false;
+                break;
+            case "Rope":
+                isNearRope = false;
                 break;
         }
     }
@@ -133,8 +153,16 @@ public class PlayerManager : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         gameObject.SetActive(true);
+        playerMovement.ResetMovement();
     }
-
+    private void EnterRope()
+    {
+        RopeController ropeController = ropeObject.GetComponentInParent<RopeController>();
+        ropeController.EnterRope(gameObject, ExitChamber);
+        ropeEnterText.SetActive(false);
+        playerMovement.ResetMovement();
+        HideWhileInChamber();
+    }
     private void HideWhileInChamber()
     {
         Cursor.lockState = CursorLockMode.None;

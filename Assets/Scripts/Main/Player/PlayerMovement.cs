@@ -93,7 +93,17 @@ public class PlayerMovement : MonoBehaviour
     {
         horizontalInput = Input.GetAxis("Horizontal");
         verticalInput = Input.GetAxis("Vertical");
+    }
+    public void ResetMovement()
+    {
+        rb.linearVelocity = Vector3.zero;
+        rb.angularVelocity = Vector3.zero;
 
+        horizontalInput = 0f;
+        verticalInput = 0f;
+
+        isRunning = false;
+        isExhausted = false;
     }
     private void MovePlayer()
     {
@@ -158,7 +168,7 @@ public class PlayerMovement : MonoBehaviour
                 AudioClip randomClip = runningSounds[randomIndex];
                 if (randomClip != null)
                 {
-                    audioSource.PlayOneShot(randomClip,0.5f);
+                    audioSource.PlayOneShot(randomClip, 0.5f);
                 }
             }
         }
