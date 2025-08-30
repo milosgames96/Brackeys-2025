@@ -28,6 +28,7 @@ public class MeleeArea : MonoBehaviour
         Enemy enemy = other.GetComponentInParent<Enemy>();
         if (enemy != null)
         {
+            enemy.TakeDamage(damage);
         }
     }
 }

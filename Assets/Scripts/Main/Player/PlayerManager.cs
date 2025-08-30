@@ -8,6 +8,7 @@ public class PlayerManager : MonoBehaviour
     public PlayerHUD playerHUD;
     public PlayerUpgradeFactory playerUpgradeFactory;
     public PlayerMovement playerMovement;
+    public PlayerBob playerBob;
     public PlayerProfile playerProfileTemplate;
     private List<PlayerProfileModifier> playerProfileModifiers;
     [HideInInspector]
@@ -24,6 +25,8 @@ public class PlayerManager : MonoBehaviour
         playerProfileModifiers = new List<PlayerProfileModifier>() { };
         playerProfile = Instantiate(playerProfileTemplate);
         playerMovement.playerProfile = playerProfile;
+        playerMovement.playerBob = playerBob;
+        playerMovement.playerManager = this;
         weaponManager = GetComponent<WeaponManager>();
     }
 
