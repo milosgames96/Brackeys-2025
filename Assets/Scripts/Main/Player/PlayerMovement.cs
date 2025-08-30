@@ -10,10 +10,17 @@ public class PlayerMovement : MonoBehaviour
     float horizontalInput;
     float verticalInput;
     bool isGrounded;
+    bool isRunning;
+    bool isExhausted;
+    float stamina;
     Rigidbody rb;
 
     [HideInInspector]
     public PlayerProfile playerProfile;
+    [HideInInspector]
+    public PlayerBob playerBob;
+    [HideInInspector]
+    public PlayerManager playerManager;
 
     [Header("Physics References")]
 
@@ -32,25 +39,24 @@ public class PlayerMovement : MonoBehaviour
     public AudioClip jumpSound; 
     public float stepRate = 0.5f;
 
-
     private AudioSource audioSource;
     private float nextStepTime = 0f;
 
+
+    private double lastYVelocity;
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-
         if (rb == null)
         {
             Debug.LogError("Rigidbody not found on the object.");
         }
-
         audioSource = GetComponent<AudioSource>();
-
-        if (audioSource==null)
+        if (audioSource == null)
         {
             Debug.LogError("Audio Source not found.");
         }
+        stamina = playerProfile.maxStamina;
     }
 
     void Update()
@@ -59,7 +65,7 @@ public class PlayerMovement : MonoBehaviour
             GetInput();
 
 
-        if (Input.GetKeyDown(KeyCode.Space) && isGrounded == true && Time.timeScale!=0)
+        if (Input.GetKeyDown(KeyCode.Space) && isGrounded == true && Time.timeScale != 0)
         {
             if (jumpSound != null)
             {
@@ -68,14 +74,19 @@ public class PlayerMovement : MonoBehaviour
 
             Jump();
         }
-
-
+        isRunning = Input.GetKey(KeyCode.LeftShift) && !isExhausted;
+        HandleStamina();
     }
 
     private void FixedUpdate()
     {
         isGrounded = Physics.Raycast(groundCheckOrigin.position, Vector3.down, groundCheckDistance, groundLayer);
         MovePlayer();
+        if (isGrounded && lastYVelocity < -10)
+        {
+            playerManager.TakeDamage((int)(Mathf.Abs((float)lastYVelocity)));
+        }
+        lastYVelocity = rb.linearVelocity.y;
     }
 
     private void GetInput()
@@ -89,21 +100,27 @@ public class PlayerMovement : MonoBehaviour
 
         Vector3 intendedMoveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
         Vector3 horizontalVelocity = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
+        float runningMultiplier = isRunning ? 15f : 1f;
+        float sidewaysMultiplier = Mathf.Abs(horizontalInput) > 0.01f ? 0.6f : 1f;
 
         // Ground movement
         if (isGrounded)
         {
             float directionDot = Vector3.Dot(intendedMoveDirection.normalized, horizontalVelocity.normalized);
-
+            HandleBob();
+            if (isRunning)
+            {
+                stamina -= Time.deltaTime;
+            }
             // If we are trying to move in the opposite direction, apply the multiplier
             // Gives a nice counter-strafe effect
             if (directionDot < -0.1f) // A sharp turn
             {
-                rb.AddForce(intendedMoveDirection.normalized * playerProfile.movementForce * counterStrafeMultiplier, ForceMode.Acceleration);
+                rb.AddForce(intendedMoveDirection.normalized * playerProfile.movementForce * runningMultiplier * sidewaysMultiplier * counterStrafeMultiplier, ForceMode.Acceleration);
             }
             else // Otherwise, use normal force
             {
-                rb.AddForce(intendedMoveDirection.normalized * playerProfile.movementForce, ForceMode.Acceleration);
+                rb.AddForce(intendedMoveDirection.normalized * playerProfile.movementForce * runningMultiplier * sidewaysMultiplier, ForceMode.Acceleration);
             }
         }
         // Air movement
@@ -144,6 +161,42 @@ public class PlayerMovement : MonoBehaviour
                     audioSource.PlayOneShot(randomClip,0.5f);
                 }
             }
+        }
+    }
+
+    private void HandleStamina()
+    {
+        if (stamina < 0)
+        {
+            isExhausted = true;
+        }
+        if (isExhausted)
+        {
+            stamina += 3 * Time.deltaTime;
+            if (stamina >= playerProfile.maxStamina)
+            {
+                isExhausted = false;
+            }
+        }
+    }
+
+    private void HandleBob()
+    {
+        if (Mathf.Abs(horizontalInput) > 0.01f || Mathf.Abs(verticalInput) > 0.01f)
+        {
+            playerBob.DoWalkingHeadBob(isRunning ? 1.2f : 0.6f);
+            if (horizontalInput != 0)
+            {
+                playerBob.DoSidewaysTilt(horizontalInput < -0.01f ? 1 : -1);
+            }
+            else if (verticalInput != 0)
+            {
+                playerBob.DoStraightTilt(verticalInput < -0.01f ? 1 : -1);
+            }
+        }
+        else
+        {
+            playerBob.Neutral();
         }
     }
 

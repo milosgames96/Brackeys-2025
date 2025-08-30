@@ -3,6 +3,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "PlayerProfile", menuName = "Scriptable Objects/PlayerProfile")]
 public class PlayerProfile : ScriptableObject
 {
+    public float maxHealth;
     public float health;
     public float maxSpeed;
     public float jumpForce;
@@ -11,4 +12,5 @@ public class PlayerProfile : ScriptableObject
     public float fillingCapacity;
     public float fillingAmount;
     public float maxAmmo;
+    public float maxStamina;
 }
