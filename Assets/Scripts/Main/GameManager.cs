@@ -8,7 +8,6 @@ public class GameManager : MonoBehaviour
     // Singleton instance
     public static GameManager instance;
     public GameObject escapeMenuUI;
-    public TextMeshProUGUI killCountText;
 
     private bool isPaused = false;
     private int enemiesKilled = 0;
@@ -30,8 +29,6 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        UpdateKillCountText();
-
         escapeMenuUI.SetActive(false);
         Time.timeScale = 1f;
     }
@@ -92,11 +89,5 @@ public class GameManager : MonoBehaviour
     public void AddKill()
     {
         enemiesKilled++;
-        UpdateKillCountText();
-    }
-
-    private void UpdateKillCountText()
-    {
-        killCountText.text = "KILLS: " + enemiesKilled;
     }
 }
