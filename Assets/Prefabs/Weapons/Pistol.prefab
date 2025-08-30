@@ -53,15 +53,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 913a5a29adf22624e891c27dd0f044e3, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0
+      value: 0.007
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 913a5a29adf22624e891c27dd0f044e3, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.06
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 913a5a29adf22624e891c27dd0f044e3, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.062
+      value: 0.098
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 913a5a29adf22624e891c27dd0f044e3, type: 3}
       propertyPath: m_LocalRotation.w
@@ -132,7 +132,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::WeaponController
   weaponType: 0
   projectile: {fileID: 4497391189460901030, guid: c12a1639e2829054d94ced5a1d491eb9, type: 3}
-  meleeArea: {fileID: 0}
+  meleeAreaObject: {fileID: 0}
   firePoint: {fileID: 4304837335952410437}
 --- !u!95 &3142099203762388584
 Animator:
