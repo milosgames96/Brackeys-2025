@@ -70,8 +70,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -187.9, y: -37}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: -190.66037, y: -37}
+  m_SizeDelta: {x: 194.4792, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &92523706895559980
 CanvasRenderer:
@@ -103,15 +103,15 @@ MonoBehaviour:
       m_Calls: []
   m_text: 0
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: dbd55ef622f0efe42a51342342cb2b44, type: 2}
+  m_sharedMaterial: {fileID: -6624799373120834754, guid: dbd55ef622f0efe42a51342342cb2b44, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4291738536
-  m_fontColor: {r: 0.65882355, g: 0.73333335, b: 0.8078432, a: 1}
+    rgba: 4287715888
+  m_fontColor: {r: 0.18823531, g: 0.3529412, b: 0.5686275, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -209,8 +209,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 300, y: 300}
+  m_AnchoredPosition: {x: 0, y: 57.926727}
+  m_SizeDelta: {x: 300, y: 184.1465}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &-395206464675431613
 MonoBehaviour:
@@ -225,8 +225,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FillingEntryController
   slider: {fileID: 3973856269086120574}
+  image: {fileID: 4809928557359377834}
   maxText: {fileID: 5851586161848381071}
   minText: {fileID: 5343760082292852694}
+  spriteLookup:
+  - collectableType: 1
+    sprite: {fileID: 21300000, guid: af551b25215925a48ba5574d15d68fd2, type: 3}
+  - collectableType: 3
+    sprite: {fileID: 21300000, guid: 94bebc2284868ac4a837ff7c8e13fc2c, type: 3}
+  - collectableType: 2
+    sprite: {fileID: 21300000, guid: 3e68edccf47729447a462a6822525ff9, type: 3}
 --- !u!1 &4132206170926196500
 GameObject:
   m_ObjectHideFlags: 0
@@ -294,15 +302,15 @@ MonoBehaviour:
       m_Calls: []
   m_text: 12
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: dbd55ef622f0efe42a51342342cb2b44, type: 2}
+  m_sharedMaterial: {fileID: -6624799373120834754, guid: dbd55ef622f0efe42a51342342cb2b44, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294825398
-  m_fontColor: {r: 0.71488965, g: 0.83549803, b: 0.990566, a: 1}
+    rgba: 4287715888
+  m_fontColor: {r: 0.18823531, g: 0.3529412, b: 0.5686275, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:

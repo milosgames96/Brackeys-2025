@@ -4,13 +4,23 @@ using TMPro;
 using Unity.VisualScripting.Dependencies.NCalc;
 using System;
 using System.Runtime.CompilerServices;
+using System.Collections.Generic;
+using System.Linq;
 
 public class FillingEntryController : MonoBehaviour
 {
+    [Serializable]
+    public class FillingSpriteLookupPair
+    {
+        public Collectable.CollectableType collectableType;
+        public Sprite sprite; 
+    }
 
     public Slider slider;
+    public Image image;
     public TextMeshProUGUI maxText;
     public TextMeshProUGUI minText;
+    public List<FillingSpriteLookupPair> spriteLookup;
     private Collectable filling;
     private Action<float, Collectable> callback;
 
@@ -23,6 +33,13 @@ public class FillingEntryController : MonoBehaviour
         slider.onValueChanged.AddListener(SliderValueChangedCallback);
         slider.minValue = 0;
         slider.maxValue = filling.amount;
+        FillingSpriteLookupPair spriteLookupPair = spriteLookup
+            .Where(pair => pair.collectableType == filling.collectableType)
+            .First();
+        if (spriteLookupPair != null)
+        {
+            image.sprite = spriteLookupPair.sprite;    
+        }
     }
 
     public float GetAmount()

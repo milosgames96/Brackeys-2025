@@ -18,9 +18,17 @@ public class PlayerProfileModifierBuilder
     {
         new PlayerProfileModifier.ValueModifier(PlayerProfileModifier.ValueModifier.ValueModifierType.FLAT, PlayerProfileModifier.ValueModifier.Field.HEALTH, 4)
     };
+    private List<PlayerProfileModifier.ValueModifier> YogurtBaseModifiers = new List<PlayerProfileModifier.ValueModifier>()
+    {
+        new PlayerProfileModifier.ValueModifier(PlayerProfileModifier.ValueModifier.ValueModifierType.FLAT, PlayerProfileModifier.ValueModifier.Field.SPEED, 7)
+    };
     private List<PlayerProfileModifier.ValueModifier> HoleBaseModifiers = new List<PlayerProfileModifier.ValueModifier>()
     {
         new PlayerProfileModifier.ValueModifier(PlayerProfileModifier.ValueModifier.ValueModifierType.FLAT, PlayerProfileModifier.ValueModifier.Field.HEALTH, -30)
+    };
+    private List<PlayerProfileModifier.ValueModifier> CoatingBaseModifiers = new List<PlayerProfileModifier.ValueModifier>()
+    {
+        new PlayerProfileModifier.ValueModifier(PlayerProfileModifier.ValueModifier.ValueModifierType.FLAT, PlayerProfileModifier.ValueModifier.Field.HEALTH, 50)
     };
 
     private PlayerProfileModifier playerProfileModifier;
@@ -124,6 +132,8 @@ public class PlayerProfileModifierBuilder
                 return ApplyAmountToBaseModifiers(JamBaseModifiers, amount);
             case Collectable.CollectableType.CHOCOLATE_FILLING:
                 return ApplyAmountToBaseModifiers(ChocolateBaseModifiers, amount);
+            case Collectable.CollectableType.YOGURT_FILLING:
+                return ApplyAmountToBaseModifiers(YogurtBaseModifiers, amount);
             default:
                 return new List<PlayerProfileModifier.ValueModifier>();
 
@@ -136,6 +146,8 @@ public class PlayerProfileModifierBuilder
         {
             case Collectable.CollectableType.HOLES_UPGRADE:
                 return ApplyAmountToBaseModifiers(HoleBaseModifiers, amount);
+            case Collectable.CollectableType.CHOCOLATE_UPGRADE:
+                return ApplyAmountToBaseModifiers(CoatingBaseModifiers, amount);
             default:
                 return new List<PlayerProfileModifier.ValueModifier>();
 

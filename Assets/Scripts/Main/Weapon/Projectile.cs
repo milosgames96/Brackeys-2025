@@ -8,7 +8,6 @@ public class Projectile : MonoBehaviour
     public float lifetime = 3f;
 
     public GameObject hitEffectPrefab;
-    //public GameObject defaultEffectPrefab;
 
     private Rigidbody rb;
 
@@ -21,30 +20,23 @@ public class Projectile : MonoBehaviour
 
     protected virtual void OnTriggerEnter(Collider other)
     {
-        Debug.Log($"Projectile hit: {other.gameObject.name}");
-        
+        if (other.tag == "Player")
+        {
+            return;
+        }
+
         Enemy enemy = other.GetComponentInParent<Enemy>();
         if (enemy != null)
         {
             enemy.TakeDamage(damage);
-
-            if (hitEffectPrefab != null)
-            {
-                Instantiate(hitEffectPrefab, transform.position, transform.rotation);
-            }
         }
 
         Boss boss = other.GetComponent<Boss>();
         if (boss != null)
         {
             boss.TakeDamage(damage);
-
-            if (hitEffectPrefab != null)
-            {
-                Instantiate(hitEffectPrefab, transform.position, transform.rotation);
-            }
         }
-
+        Instantiate(hitEffectPrefab, transform.position, transform.rotation);
         Destroy(gameObject);
     }
 }

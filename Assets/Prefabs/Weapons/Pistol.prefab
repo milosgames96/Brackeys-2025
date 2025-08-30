@@ -24,13 +24,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 399032979267268682}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0.027908787, z: -0, w: 0.9996105}
-  m_LocalPosition: {x: 0.693, y: 0.006999998, z: 0.833}
+  m_LocalRotation: {x: -0, y: -0.008057376, z: -0, w: 0.9999676}
+  m_LocalPosition: {x: 0.425, y: 0.006999998, z: 0.941}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6585137520466298374}
-  m_LocalEulerAnglesHint: {x: 0, y: -3.199, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -0.923, z: 0}
 --- !u!1001 &6695061344137306605
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -132,6 +132,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::WeaponController
   weaponType: 0
   projectile: {fileID: 4497391189460901030, guid: c12a1639e2829054d94ced5a1d491eb9, type: 3}
+  meleeArea: {fileID: 0}
   firePoint: {fileID: 4304837335952410437}
 --- !u!95 &3142099203762388584
 Animator:
