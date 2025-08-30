@@ -80,14 +80,42 @@ public class PlayerMovement : MonoBehaviour
         HandleStamina();
     }
 
+    Boolean wasGroundedLastFrame;
+    float fallStartHeight;
     private void FixedUpdate()
     {
-        isGrounded = Physics.Raycast(groundCheckOrigin.position, Vector3.down, groundCheckDistance, groundLayer);
-        MovePlayer();
-        if (isGrounded && lastYVelocity < -10)
+        // isGrounded = Physics.Raycast(groundCheckOrigin.position, Vector3.down, groundCheckDistance, groundLayer);
+        // MovePlayer();
+        // if (isGrounded && lastYVelocity < -10)
+        // {
+        //     playerManager.TakeDamage((int)(Mathf.Abs((float)lastYVelocity) * fallDamageMultiplier));
+        // }
+        // lastYVelocity = rb.linearVelocity.y;
+
+        bool groundedNow = Physics.Raycast(groundCheckOrigin.position, Vector3.down, groundCheckDistance, groundLayer);
+
+        if (!wasGroundedLastFrame && groundedNow)
         {
-            playerManager.TakeDamage((int)(Mathf.Abs((float)lastYVelocity) * fallDamageMultiplier));
+            // Just landed
+            float fallDistance = fallStartHeight - transform.position.y;
+
+            if (fallDistance > 3f) // Adjust this threshold as needed
+            {
+                float damage = (fallDistance - 3f) * fallDamageMultiplier;
+                playerManager.TakeDamage((int)damage, false);
+            }
         }
+
+        if (wasGroundedLastFrame && !groundedNow)
+        {
+            // Just left the ground, start tracking fall
+            fallStartHeight = transform.position.y;
+        }
+
+        wasGroundedLastFrame = groundedNow;
+        isGrounded = groundedNow;
+
+        MovePlayer();
         lastYVelocity = rb.linearVelocity.y;
     }
 
