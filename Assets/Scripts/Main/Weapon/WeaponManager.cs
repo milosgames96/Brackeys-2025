@@ -21,6 +21,7 @@ public class WeaponManager : MonoBehaviour
     private float shootingTimer;
     private WeaponController currentWeaponController;
     public GameObject weaponsContainer;
+    private bool isFirstEquip;
 
     private void Start()
     {
@@ -44,7 +45,13 @@ public class WeaponManager : MonoBehaviour
                 .Where(cw => cw.collectableType.Equals(collectable.collectableType))
                 .First().weaponProfile;
             weaponProfiles.Add(weaponProfile);
-            if (currentWeaponIndex < 0)
+            isFirstEquip = true;
+            if (HasCurrentWeapon())
+            {
+                currentWeaponIndex = weaponProfiles.Count - 1;
+                UnequipWeapon();
+            }
+            else
             {
                 currentWeaponIndex = 0;
                 EquipWeapon();
@@ -105,7 +112,8 @@ public class WeaponManager : MonoBehaviour
     {
         GameObject weaponControllerObject = GameObject.Instantiate(weaponProfiles[currentWeaponIndex].weaponPrefab, weaponsContainer.transform);
         currentWeaponController = weaponControllerObject.GetComponent<WeaponController>();
-        currentWeaponController.Equip(EquipedCallback);
+        currentWeaponController.Equip(EquipedCallback, isFirstEquip);
+        isFirstEquip = false;
     }
 
     private void EquipedCallback()

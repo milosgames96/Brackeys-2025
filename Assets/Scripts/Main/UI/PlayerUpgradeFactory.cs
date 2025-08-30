@@ -36,7 +36,6 @@ public class PlayerUpgradeFactory : MonoBehaviour
 
     public void Display(List<Collectable> fillings, List<Collectable> upgrades, PlayerProfile playerProfile, GameObject upgradeChamber, Action<PlayerProfileModifier, List<Collectable>> DoneCallback)
     {
-        Debug.Log("ovde");
         this.playerProfile = playerProfile;
         this.upgradeChamber = upgradeChamber;
         this.DoneCallback = DoneCallback;
@@ -55,7 +54,8 @@ public class PlayerUpgradeFactory : MonoBehaviour
 
     public void Hide()
     {
-        Destroy(upgradeChamber);
+        ChamberController chamberController = upgradeChamber.GetComponent<ChamberController>();
+        chamberController.CloseChamber();
         foreach (FillingEntryController fillingEntryController in fillingEntryControllers)
         {
             Destroy(fillingEntryController.gameObject);

@@ -19,7 +19,10 @@ public class PlayerProfileModifier : ScriptableObject
         {
             HEALTH,
             SPEED,
-            JUMP
+            JUMP,
+            DODGE,
+            RESISTANCE,
+            MAX_AMMO
         }
 
         public ValueModifier()
@@ -103,6 +106,15 @@ public class PlayerProfileModifier : ScriptableObject
                     break;
                 case ValueModifier.Field.JUMP:
                     playerProfile.jumpForce = calculator(valueModifier, playerProfile.jumpForce);
+                    break;
+                case ValueModifier.Field.DODGE:
+                    playerProfile.dodgeChance = calculator(valueModifier, playerProfile.dodgeChance);
+                    break;
+                case ValueModifier.Field.RESISTANCE:
+                    playerProfile.damageResistance = calculator(valueModifier, playerProfile.damageResistance);
+                    break;
+                case ValueModifier.Field.MAX_AMMO:
+                    playerProfile.maxAmmo = calculator(valueModifier, playerProfile.maxAmmo);
                     break;
             }
         }

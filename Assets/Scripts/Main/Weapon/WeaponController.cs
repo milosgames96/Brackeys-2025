@@ -6,7 +6,7 @@ public class WeaponController : MonoBehaviour
 {
     public WeaponProfile.WeaponType weaponType;
     public GameObject projectile;
-    public GameObject meleeArea;
+    public GameObject meleeAreaObject;
     public Transform firePoint;
     private Animator animator;
     private Dictionary<String, List<Action>> animationListeners = new Dictionary<String, List<Action>>();
@@ -14,7 +14,6 @@ public class WeaponController : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -23,8 +22,10 @@ public class WeaponController : MonoBehaviour
         CheckForCallback();
     }
 
-    public void Equip(Action EquippedCallback)
+    public void Equip(Action EquippedCallback, bool isFirstEquip)
     {
+        animator = GetComponent<Animator>();
+        animator.SetBool("isFirstEquip", isFirstEquip);
         AddAnimationListener("Idle", EquippedCallback);
     }
 
@@ -44,7 +45,9 @@ public class WeaponController : MonoBehaviour
         }
         else if (weaponType == WeaponProfile.WeaponType.MELEE)
         {
-            GameObject shotMeleeArea = Instantiate(meleeArea, firePoint.position, firePoint.rotation);
+            GameObject shotMeleeArea = Instantiate(meleeAreaObject, firePoint.position, firePoint.rotation);
+            MeleeArea meleeArea = shotMeleeArea.GetComponent<MeleeArea>();
+            meleeArea.damage = damage;
         }
         animator.Play("Shoot");
     }

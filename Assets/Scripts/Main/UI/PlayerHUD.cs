@@ -24,12 +24,12 @@ public class PlayerHUD : MonoBehaviour
 
     public void DisplayHealth(float health)
     {
-        healthText.text = "Health: " + health;
+        healthText.text = "Health: " + (int)health;
     }
 
     public void DisplayAmmo(float currentAmmo, float maxAmmo)
     {
-        ammoText.text = "Ammo: " + ((currentAmmo / maxAmmo) * 100) + "%";
+        ammoText.text = "Ammo: " + (int)((currentAmmo / maxAmmo) * 100) + "%";
     }
 
     public void DisplayDeathScreen()
