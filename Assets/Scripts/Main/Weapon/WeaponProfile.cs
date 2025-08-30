@@ -17,4 +17,5 @@ public class WeaponProfile : ScriptableObject
     public float shotsPerSecond;
     public float ammoConsumption;
     public GameObject weaponPrefab;
+    public AudioClip shootSound;
 }

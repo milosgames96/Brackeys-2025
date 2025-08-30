@@ -8,6 +8,9 @@ public class WeaponController : MonoBehaviour
     public GameObject projectile;
     public GameObject meleeAreaObject;
     public Transform firePoint;
+    public AudioSource audioSource;
+    [HideInInspector]
+    public AudioClip shootSound;
     private Animator animator;
     private Dictionary<String, List<Action>> animationListeners = new Dictionary<String, List<Action>>();
 
@@ -50,6 +53,10 @@ public class WeaponController : MonoBehaviour
             meleeArea.damage = damage;
         }
         animator.Play("Shoot");
+        if (shootSound != null)
+        {
+            audioSource.PlayOneShot(shootSound, 0.5f);            
+        }
     }
 
     private void CheckForCallback()

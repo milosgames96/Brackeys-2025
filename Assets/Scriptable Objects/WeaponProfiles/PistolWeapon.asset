@@ -19,3 +19,4 @@ MonoBehaviour:
   shotsPerSecond: 2
   ammoConsumption: 1
   weaponPrefab: {fileID: 5776089739787361468, guid: 8da3200a92860024bbfd2fdf9f0792ad, type: 3}
+  shootSound: {fileID: 8300000, guid: 47cba2692394ace40b5adb7f32281aa6, type: 3}
