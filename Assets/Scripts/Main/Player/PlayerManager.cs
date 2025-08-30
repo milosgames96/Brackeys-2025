@@ -17,6 +17,10 @@ public class PlayerManager : MonoBehaviour
     private PlayerInventory playerInventory = new PlayerInventory();
     private WeaponManager weaponManager;
     public GameObject weaponContainer;
+    public GameObject chamberEnterText;
+
+    private bool isNearChamber;
+    private GameObject chamberObject;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -47,6 +51,7 @@ public class PlayerManager : MonoBehaviour
         }
         playerHUD.DisplayHealth(playerProfile.health);
         playerHUD.DisplayAmmo(playerInventory.GetAmmo(), playerProfile.maxAmmo);
+        chamberEnterText.SetActive(isNearChamber);
         if (playerProfile.health <= 0 && isAlive)
         {
             Die();
@@ -63,6 +68,11 @@ public class PlayerManager : MonoBehaviour
         if (Input.GetMouseButton(0))
         {
             weaponManager.PullTheTrigger(WeaponShotCallback, playerInventory.GetAmmo());
+        }
+        if (Input.GetKeyDown(KeyCode.E) && isNearChamber)
+        {
+            EnterChamber();
+            isNearChamber = false;
         }
     }
 
@@ -92,10 +102,30 @@ public class PlayerManager : MonoBehaviour
                 Destroy(other.gameObject);
                 break;
             case "UpgradeChamber":
-                playerUpgradeFactory.Display(playerInventory.GetFillings(), playerInventory.GetUpgrades(), playerProfile, other.gameObject, ChamberDoneAndApplyCallback);
-                HideWhileInChamber();
+                isNearChamber = true;
+                chamberObject = other.gameObject;
                 break;
         }
+    }
+
+    protected virtual void OnTriggerExit(Collider other)
+    {
+        switch (other.tag)
+        {
+            case "UpgradeChamber":
+                isNearChamber = false;
+                break;
+        }
+    }
+
+    private void EnterChamber()
+    {
+        playerUpgradeFactory.Display(playerInventory.GetFillings(), playerInventory.GetUpgrades(), playerProfile, chamberObject, ChamberDoneAndApplyCallback);
+        ChamberController chamberController = chamberObject.GetComponent<ChamberController>();
+        chamberController.isPlayerInside = true;
+        isNearChamber = false;
+        chamberEnterText.SetActive(false);
+        HideWhileInChamber();
     }
 
     private void ExitChamber()
