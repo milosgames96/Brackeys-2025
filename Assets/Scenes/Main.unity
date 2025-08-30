@@ -6131,6 +6131,34 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 957616856}
     m_Modifications:
+    - target: {fileID: 619108346818937305, guid: 5137c6a75f6150645b72422130119570, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.612
+      objectReference: {fileID: 0}
+    - target: {fileID: 619108346818937305, guid: 5137c6a75f6150645b72422130119570, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 2.909
+      objectReference: {fileID: 0}
+    - target: {fileID: 619108346818937305, guid: 5137c6a75f6150645b72422130119570, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: -0.6760916
+      objectReference: {fileID: 0}
+    - target: {fileID: 619108346818937305, guid: 5137c6a75f6150645b72422130119570, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 619108346818937305, guid: 5137c6a75f6150645b72422130119570, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.73681766
+      objectReference: {fileID: 0}
+    - target: {fileID: 619108346818937305, guid: 5137c6a75f6150645b72422130119570, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 619108346818937305, guid: 5137c6a75f6150645b72422130119570, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -265.078
+      objectReference: {fileID: 0}
     - target: {fileID: 1206293416045817386, guid: 5137c6a75f6150645b72422130119570, type: 3}
       propertyPath: ropeCameraSpeed
       value: 12
