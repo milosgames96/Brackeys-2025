@@ -4,6 +4,7 @@ public class MeleeArea : MonoBehaviour
 {
     public float duration;
     public float damage;
+    bool isTriggered;//single shot only
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -23,12 +24,12 @@ public class MeleeArea : MonoBehaviour
     
     protected virtual void OnTriggerEnter(Collider other)
     {
-        Debug.Log($"Melee hit: {other.gameObject.name}");
-        
         Enemy enemy = other.GetComponentInParent<Enemy>();
-        if (enemy != null)
+        if (enemy != null && !isTriggered)
         {
             enemy.TakeDamage(damage);
+            Debug.Log(enemy.gameObject.name + " " + damage);
+            isTriggered = true;
         }
     }
 }

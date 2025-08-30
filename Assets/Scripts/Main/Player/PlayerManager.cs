@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -95,9 +94,16 @@ public class PlayerManager : MonoBehaviour
         modifier.Apply(playerProfile);
     }
 
-    public void TakeDamage(float amount)
+    public void TakeDamage(float amount, bool canDodge = true)
     {
+        if (canDodge && IsAttackDodged())
+        {
+            //TODO: play audio dodge
+            return;
+        }
+        amount = Mathf.Max(amount - playerProfile.damageResistance, 0);
         playerProfile.health = Mathf.Max(playerProfile.health -= amount, 0);
+        //TODO: play audio damage
     }
 
     protected virtual void OnTriggerEnter(Collider other)
@@ -106,6 +112,10 @@ public class PlayerManager : MonoBehaviour
         {
             case "PickUp":
                 PickUp pickUp = other.gameObject.GetComponent<PickUp>();
+                if (pickUp.collectable.IsAmmo() && playerInventory.GetAmmo() >= playerProfile.maxAmmo)
+                {
+                    break;
+                }
                 playerInventory.InsertCollectable(pickUp.collectable);
                 if (pickUp.collectable.IsWeapon())
                 {
@@ -195,5 +205,10 @@ public class PlayerManager : MonoBehaviour
     private void WeaponShotCallback(float ammoUsed)
     {
         playerInventory.RemoveCollectable(Collectable.CollectableType.AMMO, (int)ammoUsed);
+    }
+
+    private bool IsAttackDodged()
+    {
+        return UnityEngine.Random.value < (playerProfile.dodgeChance / 100f);
     }
 }

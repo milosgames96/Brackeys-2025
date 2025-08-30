@@ -13,4 +13,6 @@ public class PlayerProfile : ScriptableObject
     public float fillingAmount;
     public float maxAmmo;
     public float maxStamina;
+    public float dodgeChance;
+    public float damageResistance;
 }

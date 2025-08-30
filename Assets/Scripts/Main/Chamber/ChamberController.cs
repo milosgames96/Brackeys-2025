@@ -26,6 +26,6 @@ public class ChamberController : MonoBehaviour
 
     public void CloseChamber()
     {
-        
+        chamberCamera.SetActive(false);   
     }
 }

@@ -16,19 +16,23 @@ public class PlayerProfileModifierBuilder
     };
     private List<PlayerProfileModifier.ValueModifier> ChocolateBaseModifiers = new List<PlayerProfileModifier.ValueModifier>()
     {
-        new PlayerProfileModifier.ValueModifier(PlayerProfileModifier.ValueModifier.ValueModifierType.FLAT, PlayerProfileModifier.ValueModifier.Field.HEALTH, 4)
+        new PlayerProfileModifier.ValueModifier(PlayerProfileModifier.ValueModifier.ValueModifierType.FLAT, PlayerProfileModifier.ValueModifier.Field.HEALTH, 5),
+        new PlayerProfileModifier.ValueModifier(PlayerProfileModifier.ValueModifier.ValueModifierType.PERCENTAGE, PlayerProfileModifier.ValueModifier.Field.SPEED, 3)
     };
     private List<PlayerProfileModifier.ValueModifier> YogurtBaseModifiers = new List<PlayerProfileModifier.ValueModifier>()
     {
-        new PlayerProfileModifier.ValueModifier(PlayerProfileModifier.ValueModifier.ValueModifierType.FLAT, PlayerProfileModifier.ValueModifier.Field.SPEED, 7)
+        new PlayerProfileModifier.ValueModifier(PlayerProfileModifier.ValueModifier.ValueModifierType.FLAT, PlayerProfileModifier.ValueModifier.Field.RESISTANCE, 2),
+                new PlayerProfileModifier.ValueModifier(PlayerProfileModifier.ValueModifier.ValueModifierType.PERCENTAGE, PlayerProfileModifier.ValueModifier.Field.MAX_AMMO, 5)
     };
     private List<PlayerProfileModifier.ValueModifier> HoleBaseModifiers = new List<PlayerProfileModifier.ValueModifier>()
     {
-        new PlayerProfileModifier.ValueModifier(PlayerProfileModifier.ValueModifier.ValueModifierType.FLAT, PlayerProfileModifier.ValueModifier.Field.HEALTH, -30)
+        new PlayerProfileModifier.ValueModifier(PlayerProfileModifier.ValueModifier.ValueModifierType.FLAT, PlayerProfileModifier.ValueModifier.Field.HEALTH, -45),
+        new PlayerProfileModifier.ValueModifier(PlayerProfileModifier.ValueModifier.ValueModifierType.FLAT, PlayerProfileModifier.ValueModifier.Field.DODGE, 50)
     };
     private List<PlayerProfileModifier.ValueModifier> CoatingBaseModifiers = new List<PlayerProfileModifier.ValueModifier>()
     {
-        new PlayerProfileModifier.ValueModifier(PlayerProfileModifier.ValueModifier.ValueModifierType.FLAT, PlayerProfileModifier.ValueModifier.Field.HEALTH, 50)
+        new PlayerProfileModifier.ValueModifier(PlayerProfileModifier.ValueModifier.ValueModifierType.FLAT, PlayerProfileModifier.ValueModifier.Field.HEALTH, -20),
+        new PlayerProfileModifier.ValueModifier(PlayerProfileModifier.ValueModifier.ValueModifierType.FLAT, PlayerProfileModifier.ValueModifier.Field.RESISTANCE, 10)
     };
 
     private PlayerProfileModifier playerProfileModifier;
@@ -91,6 +95,8 @@ public class PlayerProfileModifierBuilder
     {
         PlayerProfileModifier completedPlayerProfileModifier = playerProfileModifier;
         playerProfileModifier = ScriptableObject.CreateInstance<PlayerProfileModifier>();
+        fillings.Clear();
+        upgrades.Clear();
         return completedPlayerProfileModifier;
     }
 
