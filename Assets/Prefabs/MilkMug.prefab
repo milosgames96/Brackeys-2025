@@ -1674,7 +1674,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 085bbaae97456c849aa13af941a28cf6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 60
+  health: 20
   damage: 5
   aggroRange: 40
   attackRange: 5
@@ -1685,7 +1685,7 @@ MonoBehaviour:
   eyeLocation: {fileID: 743996527272577127}
   hitSound: {fileID: 8300000, guid: 83e4e10bf8bcb0f40be55a1435146c00, type: 3}
   knockbackForce: 5
-  attackDelay: 0.5
+  attackDelay: 0.8
 --- !u!82 &9121851932951562284
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1699,7 +1699,7 @@ AudioSource:
   m_audioClip: {fileID: 8300000, guid: 260435ab87ff6014b846294fd121d1f6, type: 3}
   m_Resource: {fileID: 8300000, guid: 260435ab87ff6014b846294fd121d1f6, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.612
   m_Pitch: 1
   Loop: 0
   Mute: 0

@@ -100,7 +100,7 @@ Transform:
   m_GameObject: {fileID: 5422962661571922605}
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 5.1, z: -0.39733124}
+  m_LocalPosition: {x: 0, y: 3.208, z: -0.15}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -117,8 +117,8 @@ Light:
   serializedVersion: 11
   m_Type: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 1
-  m_Range: 10
+  m_Intensity: 23.48
+  m_Range: 3.79
   m_SpotAngle: 51.42102
   m_InnerSpotAngle: 30
   m_CookieSize: 10
@@ -183,23 +183,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.RenderPipelines.Universal.Runtime::UnityEngine.Rendering.Universal.UniversalAdditionalLightData
+  m_Version: 4
   m_UsePipelineSettings: 1
   m_AdditionalLightsShadowResolutionTier: 2
+  m_LightLayerMask: 1
+  m_RenderingLayers: 1
   m_CustomShadowLayers: 0
+  m_ShadowLayerMask: 1
+  m_ShadowRenderingLayers: 1
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 0
-  m_RenderingLayersMask:
-    serializedVersion: 0
-    m_Bits: 1
-  m_ShadowRenderingLayersMask:
-    serializedVersion: 0
-    m_Bits: 1
-  m_Version: 4
-  m_LightLayerMask: 1
-  m_ShadowLayerMask: 1
-  m_RenderingLayers: 1
-  m_ShadowRenderingLayers: 1
 --- !u!1001 &2195635188987781067
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -261,9 +255,17 @@ PrefabInstance:
       value: 22.094
       objectReference: {fileID: 0}
     - target: {fileID: -7511558181221131132, guid: b32df665586f24240817545b44a642ef, type: 3}
+      propertyPath: m_DynamicOccludee
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: b32df665586f24240817545b44a642ef, type: 3}
+      propertyPath: m_RenderingLayerMask
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: b32df665586f24240817545b44a642ef, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 4959e536ca159cb47a69bb8781368615, type: 2}
+      objectReference: {fileID: 2100000, guid: c108969a2c6599f43abdd179a5b18c39, type: 2}
     - target: {fileID: 919132149155446097, guid: b32df665586f24240817545b44a642ef, type: 3}
       propertyPath: m_Name
       value: Bat

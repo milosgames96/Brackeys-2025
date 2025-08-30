@@ -1,9 +1,14 @@
 fileFormatVersion: 2
 guid: e567808afe67bc14f9c6edd361db42e8
 ModelImporter:
-  serializedVersion: 24200
+  serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MAT_WPN_Pistol
+    second: {fileID: 2100000, guid: c2a09e614195119458656f72f18718cb, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -56,9 +61,6 @@ ModelImporter:
     maxBonesPerVertex: 4
     minBoneWeight: 0.001
     optimizeBones: 1
-    generateMeshLods: 0
-    meshLodGenerationFlags: 0
-    maximumMeshLod: -1
     meshOptimizationFlags: -1
     indexFormat: 0
     secondaryUVAngleDistortion: 8
