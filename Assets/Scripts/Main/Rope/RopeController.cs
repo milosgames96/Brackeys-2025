@@ -5,7 +5,8 @@ using UnityEngine;
 public class RopeController : MonoBehaviour
 {
     public GameObject ropeCamera;
-    public List<Transform> ropeCameraPoints;
+    public List<Transform> ropeCameraPoints = new List<Transform>();
+    public List<Enemy> enemyDependencies = new List<Enemy>();
     public float ropeCameraSpeed = 17f;
     public float ropeCameraLookAtSpeed = 180f;
     public Transform exitPoint;
@@ -28,11 +29,23 @@ public class RopeController : MonoBehaviour
         }
     }
 
+    public bool IsZoneFree()
+    {
+        foreach (Enemy enemy in enemyDependencies)
+        {
+            if (enemy != null && enemy.IsAlive())
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
     public void EnterRope(GameObject player, Action ExitCallback)
     {
         isPlayerInside = true;
         this.player = player;
-        this.ExitCallback = ExitCallback; 
+        this.ExitCallback = ExitCallback;
         ropeCamera.SetActive(true);
     }
 

@@ -36,6 +36,11 @@ public abstract class Enemy : MonoBehaviour
     protected Animator animator;
     protected bool isDead = false;
 
+    public bool IsAlive()
+    {
+        return !isDead;
+    }
+
     protected virtual void Awake()
     {
         agent = GetComponent<NavMeshAgent>();

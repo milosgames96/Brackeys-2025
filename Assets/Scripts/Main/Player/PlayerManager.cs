@@ -23,6 +23,7 @@ public class PlayerManager : MonoBehaviour
     private bool isNearRope;
     private GameObject chamberObject;
     private GameObject ropeObject;
+    RopeController ropeController;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -54,7 +55,7 @@ public class PlayerManager : MonoBehaviour
         playerHUD.DisplayHealth(playerProfile.health);
         playerHUD.DisplayAmmo(playerInventory.GetAmmo(), playerProfile.maxAmmo);
         chamberEnterText.SetActive(isNearChamber);
-        ropeEnterText.SetActive(isNearRope);
+        ropeEnterText.SetActive(isNearRope && ropeController != null && ropeController.IsZoneFree());
         if (playerProfile.health <= 0 && isAlive)
         {
             Die();
@@ -79,7 +80,7 @@ public class PlayerManager : MonoBehaviour
                 EnterChamber();
                 isNearChamber = false;
             }
-            else if (isNearRope)
+            else if (isNearRope && ropeController != null && ropeController.IsZoneFree())
             {
                 EnterRope();
                 isNearRope = false;
@@ -131,6 +132,7 @@ public class PlayerManager : MonoBehaviour
             case "Rope":
                 isNearRope = true;
                 ropeObject = other.gameObject;
+                ropeController = ropeObject.GetComponentInParent<RopeController>();
                 break;
         }
     }
@@ -167,7 +169,6 @@ public class PlayerManager : MonoBehaviour
     }
     private void EnterRope()
     {
-        RopeController ropeController = ropeObject.GetComponentInParent<RopeController>();
         ropeController.EnterRope(gameObject, ExitChamber);
         ropeEnterText.SetActive(false);
         playerMovement.ResetMovement();
