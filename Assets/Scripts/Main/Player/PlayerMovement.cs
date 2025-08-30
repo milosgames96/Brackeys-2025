@@ -33,6 +33,8 @@ public class PlayerMovement : MonoBehaviour
     public float groundCheckDistance = 1.1f;
     public float airMultiplier = 0.5f;
     public float counterStrafeMultiplier = 2f;
+    public float fallDamageMultiplier = 2.3f;
+    public bool canRun;
 
     [Header("Audio")]
     public List<AudioClip> runningSounds;
@@ -74,7 +76,7 @@ public class PlayerMovement : MonoBehaviour
 
             Jump();
         }
-        isRunning = Input.GetKey(KeyCode.LeftShift) && !isExhausted;
+        isRunning = Input.GetKey(KeyCode.LeftShift) && !isExhausted && canRun;
         HandleStamina();
     }
 
@@ -84,7 +86,7 @@ public class PlayerMovement : MonoBehaviour
         MovePlayer();
         if (isGrounded && lastYVelocity < -10)
         {
-            playerManager.TakeDamage((int)(Mathf.Abs((float)lastYVelocity)));
+            playerManager.TakeDamage((int)(Mathf.Abs((float)lastYVelocity) * fallDamageMultiplier));
         }
         lastYVelocity = rb.linearVelocity.y;
     }
