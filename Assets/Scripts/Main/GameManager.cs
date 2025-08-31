@@ -1,6 +1,7 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -12,6 +13,11 @@ public class GameManager : MonoBehaviour
     private bool isPaused = false;
     private int enemiesKilled = 0;
 
+    public Button exitButton;
+    public Button restartButton;
+    public Button resumeButton;
+    public Button restartPausedButton;
+    public Button exitPausedButton;
     void Awake()
     {
         if (instance == null)
@@ -30,6 +36,11 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         escapeMenuUI.SetActive(false);
+        exitButton.onClick.AddListener(ExitGame);
+        restartButton.onClick.AddListener(RestartGame);
+        restartPausedButton.onClick.AddListener(RestartGame);
+        exitPausedButton.onClick.AddListener(ExitGame);
+        resumeButton.onClick.AddListener(ResumeGame);
         Time.timeScale = 1f;
     }
 
