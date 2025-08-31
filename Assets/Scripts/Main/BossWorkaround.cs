@@ -9,6 +9,8 @@ public class BossWorkaround : MonoBehaviour
     public GameObject endMenu;
     public Button restartButton;
     public Button exitButton;
+    public AudioClip endSound;
+    public AudioSource audioSource;
     private bool isDone;
     private float fadeDuration = 1.2f;
 
@@ -29,6 +31,10 @@ public class BossWorkaround : MonoBehaviour
             isDone = true;
             black.gameObject.SetActive(true);
             StartCoroutine(FadeToBlack());
+            if (!audioSource.isPlaying)
+            {
+                audioSource.PlayOneShot(endSound);
+            }
         }
     }
 
