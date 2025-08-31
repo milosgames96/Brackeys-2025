@@ -48,6 +48,9 @@ public class MainMenuManager : MonoBehaviour
 
     public void GoToCharacterSelect()
     {
+        mainMenuPanel.SetActive(false);
+        creditsPanel.SetActive(false);
+        comicPanel.SetActive(true);
         SceneManager.LoadScene("CharacterSelect");
     }
 }
