@@ -18,8 +18,8 @@ MonoBehaviour:
   jumpForce: 27
   movementForce: 32
   brakingForce: 3200
-  fillingCapacity: 200
-  fillingAmount: 50
+  fillingCapacity: 10
+  fillingAmount: 0
   maxAmmo: 250
   maxStamina: 0
   dodgeChance: 0
