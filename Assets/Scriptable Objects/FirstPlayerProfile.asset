@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerProfile
   maxHealth: 120
   health: 120
-  maxSpeed: 7
+  maxSpeed: 8
   jumpForce: 27
   movementForce: 32
   brakingForce: 3200
