@@ -31,7 +31,7 @@ public class PlayerProfileModifierBuilder
     };
     private List<PlayerProfileModifier.ValueModifier> CoatingBaseModifiers = new List<PlayerProfileModifier.ValueModifier>()
     {
-        new PlayerProfileModifier.ValueModifier(PlayerProfileModifier.ValueModifier.ValueModifierType.FLAT, PlayerProfileModifier.ValueModifier.Field.HEALTH, -20),
+        new PlayerProfileModifier.ValueModifier(PlayerProfileModifier.ValueModifier.ValueModifierType.FLAT, PlayerProfileModifier.ValueModifier.Field.SPEED, -4),
         new PlayerProfileModifier.ValueModifier(PlayerProfileModifier.ValueModifier.ValueModifierType.FLAT, PlayerProfileModifier.ValueModifier.Field.RESISTANCE, 10)
     };
 
