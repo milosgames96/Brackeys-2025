@@ -405,11 +405,13 @@ MonoBehaviour:
   playerUpgradeFactory: {fileID: 0}
   playerMovement: {fileID: 2043503558146490527}
   playerBob: {fileID: 0}
-  playerProfileTemplate: {fileID: 11400000, guid: ce15370bcb535314fa65e4a914a687cc, type: 2}
   isAlive: 0
   weaponContainer: {fileID: 0}
   chamberEnterText: {fileID: 0}
   ropeEnterText: {fileID: 0}
+  damageSounds: []
+  dodgeSounds: []
+  playerProfileTemaplte: {fileID: 0}
 --- !u!114 &4119035517257474618
 MonoBehaviour:
   m_ObjectHideFlags: 0

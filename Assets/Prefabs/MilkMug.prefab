@@ -1674,8 +1674,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 085bbaae97456c849aa13af941a28cf6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 20
-  damage: 5
+  health: 36
+  damage: 8
   aggroRange: 40
   attackRange: 5
   visionAngle: 90

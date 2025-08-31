@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: AmmoSmall
   m_EditorClassIdentifier: Assembly-CSharp::Collectable
   collectableType: 6
-  amount: 25
+  amount: 15

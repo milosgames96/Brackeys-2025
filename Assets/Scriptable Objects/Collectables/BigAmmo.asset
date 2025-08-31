@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: BigAmmo
   m_EditorClassIdentifier: Assembly-CSharp::Collectable
   collectableType: 6
-  amount: 75
+  amount: 45

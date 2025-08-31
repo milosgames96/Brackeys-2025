@@ -462,10 +462,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8dd279fec2144d49bf1f99162607dc2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 200
-  damage: 10
+  health: 75
+  damage: 45
   aggroRange: 60
   attackRange: 30
+  visionAngle: 90
   visionMask:
     serializedVersion: 2
     m_Bits: 2624
@@ -473,11 +474,11 @@ MonoBehaviour:
   hitSound: {fileID: 8300000, guid: accce3f0c6292cc44839a54fcc1cd140, type: 3}
   projectilePrefab: {fileID: 3342753435271600239, guid: 3ca040ef33f0cbe4ba330581dcd11be7, type: 3}
   firePoint: {fileID: 531341060993060691}
-  fireCooldown: 4
-  projectileFlightTime: 2
-  shotsInBurst: 4
+  fireCooldown: 3
+  projectileFlightTime: 1.8
+  shotsInBurst: 7
   animationDelay: 0.5
-  attackSpreadRadius: 2
+  attackSpreadRadius: 3.2
   burstShotDelay: 0.2
 --- !u!114 &6350957595764551060
 MonoBehaviour:
