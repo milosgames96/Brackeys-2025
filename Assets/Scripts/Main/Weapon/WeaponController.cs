@@ -52,7 +52,7 @@ public class WeaponController : MonoBehaviour
             MeleeArea meleeArea = shotMeleeArea.GetComponent<MeleeArea>();
             meleeArea.damage = damage;
         }
-        animator.Play("Shoot");
+        animator.Play("Shoot", 0, 0f);
         if (shootSound != null)
         {
             audioSource.PlayOneShot(shootSound, 0.5f);

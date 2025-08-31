@@ -8,7 +8,6 @@ public class PlayerManager : MonoBehaviour
     public PlayerUpgradeFactory playerUpgradeFactory;
     public PlayerMovement playerMovement;
     public PlayerBob playerBob;
-    public PlayerProfile playerProfileTemplate;
     private List<PlayerProfileModifier> playerProfileModifiers;
     [HideInInspector]
     public bool isAlive;
@@ -33,7 +32,7 @@ public class PlayerManager : MonoBehaviour
     {
         isAlive = true;
         playerProfileModifiers = new List<PlayerProfileModifier>() { };
-        playerProfile = Instantiate(playerProfileTemplate);
+        playerProfile = Instantiate(CharacterSelectionManager.selectedPlayerProfile);
         playerMovement.playerProfile = playerProfile;
         playerMovement.playerBob = playerBob;
         playerMovement.playerManager = this;
