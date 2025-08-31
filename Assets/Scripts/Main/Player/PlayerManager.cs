@@ -27,12 +27,21 @@ public class PlayerManager : MonoBehaviour
     private GameObject ropeObject;
     RopeController ropeController;
 
+    public PlayerProfile playerProfileTemaplte;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         isAlive = true;
         playerProfileModifiers = new List<PlayerProfileModifier>() { };
-        playerProfile = Instantiate(CharacterSelectionManager.selectedPlayerProfile);
+        if (CharacterSelectionManager.selectedPlayerProfile != null)
+        {
+            playerProfile = Instantiate(CharacterSelectionManager.selectedPlayerProfile);
+        }
+        else
+        {
+            playerProfile = Instantiate(playerProfileTemaplte);
+        }
         playerMovement.playerProfile = playerProfile;
         playerMovement.playerBob = playerBob;
         playerMovement.playerManager = this;
