@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: BatWeaponProfile
   m_EditorClassIdentifier: Assembly-CSharp::WeaponProfile
   weaponType: 1
-  baseDamage: 12
+  baseDamage: 20
   critChance: 45
   accuracy: 100
   shotsPerSecond: 1
