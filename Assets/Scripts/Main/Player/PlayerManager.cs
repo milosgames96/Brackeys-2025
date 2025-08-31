@@ -18,6 +18,9 @@ public class PlayerManager : MonoBehaviour
     public GameObject weaponContainer;
     public GameObject chamberEnterText;
     public GameObject ropeEnterText;
+    private AudioSource audioSource;
+    public List<AudioClip> damageSounds;
+    public List<AudioClip> dodgeSounds;
 
     private bool isNearChamber;
     private bool isNearRope;
@@ -35,6 +38,7 @@ public class PlayerManager : MonoBehaviour
         playerMovement.playerBob = playerBob;
         playerMovement.playerManager = this;
         weaponManager = GetComponent<WeaponManager>();
+        audioSource = gameObject.AddComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -99,12 +103,20 @@ public class PlayerManager : MonoBehaviour
     {
         if (canDodge && IsAttackDodged())
         {
-            //TODO: play audio dodge
+            if (dodgeSounds.Count > 0 && !audioSource.isPlaying)
+            {
+                AudioClip dodgeSound = dodgeSounds[UnityEngine.Random.Range(0, dodgeSounds.Count)];
+                audioSource.PlayOneShot(dodgeSound);
+            }
             return;
         }
         amount = Mathf.Max(amount - playerProfile.damageResistance, 0);
         playerProfile.health = Mathf.Max(playerProfile.health -= amount, 0);
-        //TODO: play audio damage
+        if (damageSounds.Count > 0 && !audioSource.isPlaying)
+        {
+            AudioClip damageSound = damageSounds[UnityEngine.Random.Range(0, damageSounds.Count)];
+            audioSource.PlayOneShot(damageSound);
+        }
     }
 
     protected virtual void OnTriggerEnter(Collider other)

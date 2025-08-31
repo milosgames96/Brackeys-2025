@@ -113,6 +113,7 @@ public class WeaponManager : MonoBehaviour
         GameObject weaponControllerObject = GameObject.Instantiate(weaponProfiles[currentWeaponIndex].weaponPrefab, weaponsContainer.transform);
         currentWeaponController = weaponControllerObject.GetComponent<WeaponController>();
         currentWeaponController.Equip(EquipedCallback, isFirstEquip);
+        currentWeaponController.shootSound = weaponProfiles[currentWeaponIndex].shootSound;
         isFirstEquip = false;
     }
 

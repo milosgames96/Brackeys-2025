@@ -17,11 +17,15 @@ public class PlayerUpgradeFactory : MonoBehaviour
     public GameObject fillingCapacityOverfilledText;
     public TextMeshProUGUI statsPreviewText;
     public Button doneButton;
+    public AudioClip fillingSound;
+    public AudioClip coatingSound;
+    public AudioClip holeSound;
     private List<FillingEntryController> fillingEntryControllers = new List<FillingEntryController>();
     private List<UpgradeEntryController> upgradeEntryControllers = new List<UpgradeEntryController>();
     private PlayerProfile playerProfile;
     private PlayerProfileModifierBuilder playerProfileModifierBuilder;
     private GameObject upgradeChamber;
+    private AudioSource upgradeChamberAudioSource;
     private Action<PlayerProfileModifier, List<Collectable>> DoneCallback;
     private PlayerInventory consumedCollectablesInventory;
 
@@ -39,6 +43,7 @@ public class PlayerUpgradeFactory : MonoBehaviour
         this.playerProfile = playerProfile;
         this.upgradeChamber = upgradeChamber;
         this.DoneCallback = DoneCallback;
+        this.upgradeChamberAudioSource = upgradeChamber.GetComponent<AudioSource>();
         upgradeChamber.transform.Find("ChamberCamera").gameObject.SetActive(true);
         fillingCapacitySlider.gameObject.SetActive(true);
         fillingCapacitySlider.minValue = 0;
@@ -175,6 +180,10 @@ public class PlayerUpgradeFactory : MonoBehaviour
         consumedCollectablesInventory.RemoveCollectable(filling);
         if (value > 0)
         {
+            if (!upgradeChamberAudioSource.isPlaying)
+            {
+                upgradeChamberAudioSource.PlayOneShot(fillingSound, 0.5f);
+            }
             playerProfileModifierBuilder.AddFilling(filling, (int)value);
             consumedCollectablesInventory.InsertCollectable(filling.collectableType, (int)value);
         }
@@ -182,6 +191,7 @@ public class PlayerUpgradeFactory : MonoBehaviour
         {
             playerProfileModifierBuilder.RemoveFilling(filling);
         }
+
         UpdateFillingCapacitySlider();
         UpdateStatsPreview();
     }
@@ -191,6 +201,17 @@ public class PlayerUpgradeFactory : MonoBehaviour
         consumedCollectablesInventory.RemoveCollectable(upgrade);
         if (value)
         {
+            if (!upgradeChamberAudioSource.isPlaying)
+            {
+                if (upgrade.collectableType == Collectable.CollectableType.CHOCOLATE_UPGRADE)
+                {
+                    upgradeChamberAudioSource.PlayOneShot(coatingSound, 0.5f);
+                }
+                else
+                {
+                    upgradeChamberAudioSource.PlayOneShot(holeSound, 0.5f);   
+                }
+            }
             playerProfileModifierBuilder.AddUpgrade(upgrade, 1);
             consumedCollectablesInventory.InsertCollectable(upgrade.collectableType, 1);
         }
