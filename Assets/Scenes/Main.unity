@@ -22338,6 +22338,10 @@ PrefabInstance:
       value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 2043503558146490527, guid: cd94a16317d7989469aa00662a7dacf8, type: 3}
+      propertyPath: jumpSound
+      value: 
+      objectReference: {fileID: 8300000, guid: b1342de082e038a4fb3d32492ac7491e, type: 3}
+    - target: {fileID: 2043503558146490527, guid: cd94a16317d7989469aa00662a7dacf8, type: 3}
       propertyPath: airMultiplier
       value: 0.25
       objectReference: {fileID: 0}
