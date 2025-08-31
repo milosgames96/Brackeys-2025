@@ -1,10 +1,11 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerHUD : MonoBehaviour
 {
 
-    public TextMeshProUGUI healthText;
+    public Slider healthBar;
     public TextMeshProUGUI ammoText;
     public GameObject deathScreenUI;
     public GameObject notificationsContainer;
@@ -22,14 +23,14 @@ public class PlayerHUD : MonoBehaviour
     }
 
 
-    public void DisplayHealth(float health)
+    public void DisplayHealth(float health, float maxHealth)
     {
-        healthText.text = "Health: " + (int)health;
+        healthBar.value = Mathf.Min(1f, health / maxHealth);
     }
 
     public void DisplayAmmo(float currentAmmo, float maxAmmo)
     {
-        ammoText.text = "Ammo: " + (int)((currentAmmo / maxAmmo) * 100) + "%";
+        ammoText.text = (int)((currentAmmo / maxAmmo) * 100) + "%";
     }
 
     public void DisplayDeathScreen()

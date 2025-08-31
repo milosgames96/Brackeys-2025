@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2babe480cc74d274896f1de0067b4e3d, type: 3}
   m_Name: PlayerProfile
   m_EditorClassIdentifier: Assembly-CSharp::PlayerProfile
-  maxHealth: 0
+  maxHealth: 100
   health: 100
   maxSpeed: 9
   jumpForce: 27
@@ -22,3 +22,5 @@ MonoBehaviour:
   fillingAmount: 50
   maxAmmo: 250
   maxStamina: 0
+  dodgeChance: 0
+  damageResistance: 0

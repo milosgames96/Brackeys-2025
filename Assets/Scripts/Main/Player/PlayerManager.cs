@@ -52,6 +52,8 @@ public class PlayerManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //dirtyyy
+        playerProfile.health = Mathf.Min(playerProfile.maxHealth, playerProfile.health);
         for (int i = playerProfileModifiers.Count - 1; i >= 0; i--)
         {
             PlayerProfileModifier playerProfileModifier = playerProfileModifiers[i];
@@ -64,7 +66,7 @@ public class PlayerManager : MonoBehaviour
                 playerProfileModifiers.RemoveAt(i);
             }
         }
-        playerHUD.DisplayHealth(playerProfile.health);
+        playerHUD.DisplayHealth(playerProfile.health, playerProfile.maxHealth);
         playerHUD.DisplayAmmo(playerInventory.GetAmmo(), playerProfile.maxAmmo);
         chamberEnterText.SetActive(isNearChamber);
         ropeEnterText.SetActive(isNearRope && ropeController != null && ropeController.IsZoneFree());
@@ -192,7 +194,7 @@ public class PlayerManager : MonoBehaviour
         ropeController.EnterRope(gameObject, ExitChamber);
         ropeEnterText.SetActive(false);
         playerMovement.ResetMovement();
-        HideWhileInChamber();
+        gameObject.SetActive(false);
     }
     private void HideWhileInChamber()
     {
