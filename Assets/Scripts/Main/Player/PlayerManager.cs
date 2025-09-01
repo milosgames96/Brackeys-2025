@@ -137,6 +137,8 @@ public class PlayerManager : MonoBehaviour
             AudioClip damageSound = damageSounds[UnityEngine.Random.Range(0, damageSounds.Count)];
             audioSource.PlayOneShot(damageSound);
         }
+
+        Debug.Log("Player took " + amount + " damage. Current health: " + playerProfile.health +" Max Health: "+ playerProfile.maxHealth);
     }
 
     protected virtual void OnTriggerEnter(Collider other)
