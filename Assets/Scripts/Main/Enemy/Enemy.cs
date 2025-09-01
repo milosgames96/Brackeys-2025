@@ -22,6 +22,7 @@ public abstract class Enemy : MonoBehaviour
     public float attackRange = 30f;
 
     [Header("Detection")]
+    public float senseRadius = 12f;
     public float visionAngle = 90f;
     public LayerMask visionMask;
     public Transform eyeLocation;
@@ -140,6 +141,13 @@ public abstract class Enemy : MonoBehaviour
 
         Vector3 directionToPlayer = playerTarget.position - eyeLocation.position;
         float distanceToPlayer = directionToPlayer.magnitude;
+
+        // This is "absolute" aggro range. So we prevent sneaking up behind
+        // Works kinda like World of Warcraft's aggro system
+        if (distanceToPlayer <= senseRadius)
+        {
+            return true;
+        }
 
         // Check if the player is outside our aggro range
         if (distanceToPlayer > aggroRange)
