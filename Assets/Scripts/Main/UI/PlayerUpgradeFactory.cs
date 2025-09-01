@@ -20,6 +20,8 @@ public class PlayerUpgradeFactory : MonoBehaviour
     public AudioClip fillingSound;
     public AudioClip coatingSound;
     public AudioClip holeSound;
+    public static event Action OnPlayerEnterChamber;
+
     private List<FillingEntryController> fillingEntryControllers = new List<FillingEntryController>();
     private List<UpgradeEntryController> upgradeEntryControllers = new List<UpgradeEntryController>();
     private PlayerProfile playerProfile;
@@ -55,6 +57,7 @@ public class PlayerUpgradeFactory : MonoBehaviour
         statsPreviewText.text = "";
         PopulateFillingEntries(fillings);
         PopulateUpgradeEntries(upgrades);
+        OnPlayerEnterChamber?.Invoke();
     }
 
     public void Hide()

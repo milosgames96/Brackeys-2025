@@ -29,6 +29,16 @@ public class PlayerManager : MonoBehaviour
 
     public PlayerProfile playerProfileTemaplte;
 
+    private void OnEnable()
+    {
+        PlayerUpgradeFactory.OnPlayerEnterChamber += RestoreHP;
+    }
+
+    private void OnDisable()
+    {
+        PlayerUpgradeFactory.OnPlayerEnterChamber -= RestoreHP;
+    }
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -233,5 +243,10 @@ public class PlayerManager : MonoBehaviour
     private bool IsAttackDodged()
     {
         return UnityEngine.Random.value < (playerProfile.dodgeChance / 100f);
+    }
+
+    private void RestoreHP()
+    {
+        playerProfile.health = playerProfile.maxHealth;
     }
 }
