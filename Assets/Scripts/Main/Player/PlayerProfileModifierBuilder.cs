@@ -24,9 +24,14 @@ public class PlayerProfileModifierBuilder
         new PlayerProfileModifier.ValueModifier(PlayerProfileModifier.ValueModifier.ValueModifierType.FLAT, PlayerProfileModifier.ValueModifier.Field.RESISTANCE, 2),
                 new PlayerProfileModifier.ValueModifier(PlayerProfileModifier.ValueModifier.ValueModifierType.PERCENTAGE, PlayerProfileModifier.ValueModifier.Field.MAX_AMMO, 5)
     };
+    //private List<PlayerProfileModifier.ValueModifier> HoleBaseModifiers = new List<PlayerProfileModifier.ValueModifier>()
+    //{
+    //    new PlayerProfileModifier.ValueModifier(PlayerProfileModifier.ValueModifier.ValueModifierType.FLAT, PlayerProfileModifier.ValueModifier.Field.HEALTH, -45),
+    //    new PlayerProfileModifier.ValueModifier(PlayerProfileModifier.ValueModifier.ValueModifierType.FLAT, PlayerProfileModifier.ValueModifier.Field.DODGE, 50)
+    //};
     private List<PlayerProfileModifier.ValueModifier> HoleBaseModifiers = new List<PlayerProfileModifier.ValueModifier>()
     {
-        new PlayerProfileModifier.ValueModifier(PlayerProfileModifier.ValueModifier.ValueModifierType.FLAT, PlayerProfileModifier.ValueModifier.Field.HEALTH, -45),
+        new PlayerProfileModifier.ValueModifier(PlayerProfileModifier.ValueModifier.ValueModifierType.FLAT, PlayerProfileModifier.ValueModifier.Field.MAX_HEALTH, -45),
         new PlayerProfileModifier.ValueModifier(PlayerProfileModifier.ValueModifier.ValueModifierType.FLAT, PlayerProfileModifier.ValueModifier.Field.DODGE, 50)
     };
     private List<PlayerProfileModifier.ValueModifier> CoatingBaseModifiers = new List<PlayerProfileModifier.ValueModifier>()

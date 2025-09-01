@@ -22,7 +22,8 @@ public class PlayerProfileModifier : ScriptableObject
             JUMP,
             DODGE,
             RESISTANCE,
-            MAX_AMMO
+            MAX_AMMO,
+            MAX_HEALTH
         }
 
         public ValueModifier()
@@ -116,6 +117,10 @@ public class PlayerProfileModifier : ScriptableObject
                 case ValueModifier.Field.MAX_AMMO:
                     playerProfile.maxAmmo = calculator(valueModifier, playerProfile.maxAmmo);
                     break;
+                case ValueModifier.Field.MAX_HEALTH:
+                    playerProfile.maxHealth = calculator(valueModifier, playerProfile.maxHealth);
+                    break;
+
             }
         }
     }
