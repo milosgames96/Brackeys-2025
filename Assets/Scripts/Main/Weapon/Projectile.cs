@@ -20,7 +20,7 @@ public class Projectile : MonoBehaviour
 
     protected virtual void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Player" || other.tag == "PlayerTrigger")
+        if (other.CompareTag("Player") || other.CompareTag("PlayerTrigger") || other.CompareTag("PickUp"))
         {
             return;
         }
