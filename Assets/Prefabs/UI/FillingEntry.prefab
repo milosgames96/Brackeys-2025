@@ -230,11 +230,11 @@ MonoBehaviour:
   minText: {fileID: 5343760082292852694}
   spriteLookup:
   - collectableType: 1
-    sprite: {fileID: 21300000, guid: af551b25215925a48ba5574d15d68fd2, type: 3}
+    sprite: {fileID: 21300000, guid: 1ab171705d65f164f8c2621f2878d597, type: 3}
   - collectableType: 3
-    sprite: {fileID: 21300000, guid: 94bebc2284868ac4a837ff7c8e13fc2c, type: 3}
+    sprite: {fileID: 21300000, guid: effad3de85f210f4eae1dde09843a342, type: 3}
   - collectableType: 2
-    sprite: {fileID: 21300000, guid: 3e68edccf47729447a462a6822525ff9, type: 3}
+    sprite: {fileID: 21300000, guid: cb89c2ac209e44341bcd6eb2c4c65cbb, type: 3}
 --- !u!1 &4132206170926196500
 GameObject:
   m_ObjectHideFlags: 0

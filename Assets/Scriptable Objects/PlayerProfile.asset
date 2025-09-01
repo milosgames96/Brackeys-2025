@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: PlayerProfile
   m_EditorClassIdentifier: Assembly-CSharp::PlayerProfile
   maxHealth: 100
-  health: 50
+  health: 100
   maxSpeed: 9
   jumpForce: 27
   movementForce: 32

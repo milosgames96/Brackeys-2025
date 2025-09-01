@@ -130,9 +130,9 @@ MonoBehaviour:
   image: {fileID: 1011178056855924971}
   spriteLookup:
   - collectableType: 4
-    sprite: {fileID: 21300000, guid: e2fff5bb3f2147845b7cba64a35a9064, type: 3}
+    sprite: {fileID: 21300000, guid: 43483eb68ed70484f82ba1927a9fec53, type: 3}
   - collectableType: 5
-    sprite: {fileID: 21300000, guid: 687bd8e789acafa4787b5235bf170543, type: 3}
+    sprite: {fileID: 21300000, guid: c5bac3e3834e89d4b908d2843b736563, type: 3}
 --- !u!1 &2807572484313018592
 GameObject:
   m_ObjectHideFlags: 0

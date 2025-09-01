@@ -59,6 +59,8 @@ public class PlayerMovement : MonoBehaviour
             Debug.LogError("Audio Source not found.");
         }
         stamina = playerProfile.maxStamina;
+
+        transform.rotation = Quaternion.Euler(0, 0, 0);
     }
 
     void Update()
