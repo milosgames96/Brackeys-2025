@@ -82,7 +82,11 @@ public class MilkBottle : Enemy
         if (agent.enabled)
             agent.isStopped = true;
 
-        transform.LookAt(playerTarget);
+        Vector3 targetPosition = new Vector3(playerTarget.position.x, transform.position.y, playerTarget.position.z);
+        transform.LookAt(targetPosition);
+
+        //transform.LookAt(playerTarget);
+
         Attack();
     }
     protected override void HandleDeathState()

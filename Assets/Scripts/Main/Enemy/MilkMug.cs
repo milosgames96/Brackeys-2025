@@ -88,7 +88,10 @@ public class MilkMug : Enemy
             return;
         }
 
-        transform.LookAt(playerTarget);
+        Vector3 targetPosition = new Vector3(playerTarget.position.x, transform.position.y, playerTarget.position.z);
+        transform.LookAt(targetPosition);
+
+        //transform.LookAt(playerTarget);
 
         if (Time.time >= nextAttackTime)
         {

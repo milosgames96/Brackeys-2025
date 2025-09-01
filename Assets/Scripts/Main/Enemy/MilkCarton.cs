@@ -81,7 +81,10 @@ public class MilkCarton : Enemy
             agent.isStopped = true;
         }
 
-        transform.LookAt(playerTarget);
+        Vector3 targetPosition = new Vector3(playerTarget.position.x, transform.position.y, playerTarget.position.z);
+        transform.LookAt(targetPosition);
+
+        //transform.LookAt(playerTarget);
 
         float distanceToPlayer = Vector3.Distance(transform.position, playerTarget.position);
         if (distanceToPlayer > attackRange)
