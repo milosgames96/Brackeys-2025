@@ -36,6 +36,7 @@ public abstract class Enemy : MonoBehaviour
     protected Transform playerTarget;
     protected Animator animator;
     protected bool isDead = false;
+    protected bool isEnraged = false;
 
     public bool IsAlive()
     {
@@ -105,6 +106,11 @@ public abstract class Enemy : MonoBehaviour
         {
             Die();
             HandleDeathState();
+        }
+        else
+        {
+            isEnraged = true;
+            currentState = State.Chasing;
         }
     }
 

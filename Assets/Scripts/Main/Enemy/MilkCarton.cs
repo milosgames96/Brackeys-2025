@@ -61,7 +61,7 @@ public class MilkCarton : Enemy
         {
             currentState = State.Attacking;
         }
-        else if (distanceToPlayer > aggroRange || !canSeePlayer)
+        else if ((distanceToPlayer > aggroRange || !canSeePlayer) && !isEnraged)
         {
             currentState = State.Idle;
         }

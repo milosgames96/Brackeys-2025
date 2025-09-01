@@ -62,7 +62,7 @@ public class MilkMug : Enemy
         {
             currentState = State.Attacking;
         }
-        else if (distanceToPlayer > aggroRange || !canSeePlayer)
+        else if ((distanceToPlayer > aggroRange || !canSeePlayer) && !isEnraged)
         {
             currentState = State.Idle;
         }

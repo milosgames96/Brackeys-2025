@@ -65,7 +65,7 @@ public class MilkBottle : Enemy
         {
             PrimingState();
         }
-        else if (distanceToPlayer > aggroRange || !canSeePlayer)
+        else if ((distanceToPlayer > aggroRange || !canSeePlayer) && !isEnraged)
         {
             currentState = State.Idle;
         }
