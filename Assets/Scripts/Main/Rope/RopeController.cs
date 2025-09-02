@@ -10,20 +10,38 @@ public class RopeController : MonoBehaviour
     public float ropeCameraSpeed = 17f;
     public float ropeCameraLookAtSpeed = 180f;
     public Transform exitPoint;
+    public AudioClip unrollSound;
     private bool isPlayerInside;
     private Transform currentRopeCameraPoint;
     private GameObject player;
     private Action ExitCallback;
+    private Animator animator;
+    private AudioSource audioSource;
+    private bool isRolled;
 
     void Start()
     {
+        animator = GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>();
         ropeCamera.SetActive(false);
+        isRolled = enemyDependencies.Count > 0;
+        animator.SetBool("isRolled", isRolled);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (isPlayerInside)
+        if (isRolled)
+        {
+            if (IsZoneFree())
+            {
+                isRolled = false;
+                animator.SetBool("isRolled", isRolled);
+                audioSource.PlayOneShot(unrollSound, 0.5f);
+            }
+        }
+        
+        if (isPlayerInside && !isRolled)
         {
             UnrollRope();
         }
@@ -35,6 +53,7 @@ public class RopeController : MonoBehaviour
         {
             if (enemy != null && enemy.IsAlive())
             {
+                Debug.Log(enemy.IsAlive());
                 return false;
             }
         }
