@@ -53,7 +53,7 @@ public class RopeController : MonoBehaviour
         {
             if (enemy != null && enemy.IsAlive())
             {
-                Debug.Log(enemy.IsAlive());
+                //Debug.Log(enemy.IsAlive());
                 return false;
             }
         }

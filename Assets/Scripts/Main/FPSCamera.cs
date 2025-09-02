@@ -49,11 +49,11 @@ public class FPSCamera : MonoBehaviour
         transform.localRotation = Quaternion.Euler(0f, mouseY_rotation, 0f);
     }
 
-    public void ResetCamera()
-    {
-        orientationOfCamera.localRotation = Quaternion.Euler(Vector3.zero);
-        transform.localRotation = Quaternion.Euler(Vector3.zero);
-    }
+    //public void ResetCamera()
+    //{
+    //    orientationOfCamera.localRotation = Quaternion.Euler(Vector3.zero);
+    //    transform.localRotation = Quaternion.Euler(Vector3.zero);
+    //}
 
     public void SetMouseSensitivity(float newSensitivity)
     {
