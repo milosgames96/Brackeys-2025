@@ -14,13 +14,13 @@ public class PlayerManager : MonoBehaviour
     private PlayerProfile playerProfile;
     private PlayerInventory playerInventory = new PlayerInventory();
     private WeaponManager weaponManager;
+    private FPSCamera fpsCamera;
     public GameObject weaponContainer;
     public GameObject chamberEnterText;
     public GameObject ropeEnterText;
     private AudioSource audioSource;
     public List<AudioClip> damageSounds;
     public List<AudioClip> dodgeSounds;
-
     private bool isNearChamber;
     private bool isNearRope;
     private GameObject chamberObject;
@@ -47,6 +47,7 @@ public class PlayerManager : MonoBehaviour
         playerMovement.playerManager = this;
         weaponManager = GetComponent<WeaponManager>();
         audioSource = gameObject.AddComponent<AudioSource>();
+        fpsCamera = gameObject.AddComponent<FPSCamera>();
     }
 
     // Update is called once per frame
@@ -107,6 +108,11 @@ public class PlayerManager : MonoBehaviour
     {
         playerProfileModifiers.Add(modifier);
         modifier.Apply(playerProfile);
+    }
+
+    public void ResetRotation()
+    {
+        fpsCamera.ResetCamera();
     }
 
     public void TakeDamage(float amount, bool canDodge = true)
@@ -191,7 +197,7 @@ public class PlayerManager : MonoBehaviour
     }
     private void EnterRope()
     {
-        ropeController.EnterRope(gameObject, ExitChamber);
+        ropeController.EnterRope(this, ExitChamber);
         ropeEnterText.SetActive(false);
         playerMovement.ResetMovement();
         gameObject.SetActive(false);
